@@ -106,7 +106,7 @@ export default function Testimonials() {
         className="pointer-events-none absolute -bottom-40 -left-20 w-[420px] h-[420px] rounded-full bg-primary/[0.05] blur-3xl"
       />
 
-      <div className="relative max-w-[1400px] xl:max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-20">
+      <div className="relative max-w-[1400px] xl:max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-8 xl:px-12 2xl:px-20">
         <div className="mb-12 sm:mb-14 lg:mb-20">
           <SectionHeader
             tag="Testimonials"
@@ -121,10 +121,10 @@ export default function Testimonials() {
           aria-roledescription="carousel"
           aria-label="Community testimonials"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-12 2xl:gap-16 items-center">
             {/* THUMBNAIL COLUMN */}
-            <div className="lg:col-span-5">
-              <div className="relative w-full max-w-md lg:max-w-none mx-auto lg:pl-4 lg:pt-6">
+            <div className="lg:col-span-4 min-w-0">
+              <div className="relative w-full max-w-md lg:max-w-none mx-auto lg:pl-0 xl:pl-4 lg:pt-4 xl:pt-6">
                 {/* Rotated story-tag badge */}
                 <div
                   className="absolute -top-3 -left-1 lg:-top-3 lg:-left-3 z-20 bg-primary text-white rounded-xl px-3 py-2 lg:px-4 lg:py-2.5 shadow-lg flex items-center gap-2 -rotate-[4deg] origin-bottom-left"
@@ -204,7 +204,7 @@ export default function Testimonials() {
             </div>
 
             {/* CONTENT COLUMN */}
-            <div className="lg:col-span-7 relative">
+            <div className="lg:col-span-8 min-w-0 relative">
               {/* Ghost quote glyph */}
               <span
                 aria-hidden="true"
@@ -236,7 +236,7 @@ export default function Testimonials() {
                     {/* Quote */}
                     <blockquote className="relative pt-8 lg:pt-6">
                       <motion.p
-                        className="text-lg sm:text-xl lg:text-[1.6rem] xl:text-[1.75rem] leading-[1.55] text-dark-text font-medium tracking-tight"
+                        className="text-lg sm:text-xl lg:text-xl xl:text-[1.6rem] 2xl:text-[1.75rem] leading-[1.55] text-dark-text font-medium tracking-tight break-words"
                         variants={quoteContainer}
                         initial="hidden"
                         animate="show"
@@ -246,7 +246,7 @@ export default function Testimonials() {
                           <motion.span
                             key={`${active.id}-word-${wordIndex}`}
                             variants={quoteWord}
-                            className={`inline-block ${
+                            className={`inline-block break-words ${
                               wordIndex < quoteWords.length - 1 ? "mr-1" : ""
                             }`}
                           >
