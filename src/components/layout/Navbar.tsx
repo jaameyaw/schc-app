@@ -48,16 +48,17 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-[70px] lg:h-[80px] xl:h-[88px]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+          <Link href="/" className="flex items-center gap-1 lg:gap-1 xl:gap-2 shrink-0 group">
             <div className="relative">
               <Image
                 src="/images/logo.jpeg"
                 alt="SCHC Logo"
                 width={56}
                 height={56}
-                className="rounded-full object-cover w-11 h-11 lg:w-12 lg:h-12 xl:w-14 xl:h-14 transition-transform duration-300 group-hover:scale-105"
+                quality={100}
+                sizes="(min-width: 1280px) 64px, (min-width: 1024px) 56px, 64px"
+                className="object-contain w-16 h-16 lg:w-14 lg:h-14 xl:w-16 xl:h-16 transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="absolute inset-0 rounded-full ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300" />
             </div>
             <div className="hidden sm:block leading-tight">
               <p className="font-bold text-dark-text text-[14px] lg:text-[15px] xl:text-[18px] tracking-tight">
