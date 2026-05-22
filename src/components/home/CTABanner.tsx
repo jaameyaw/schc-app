@@ -27,16 +27,26 @@ export default function CTABanner() {
             Together, we can prioritize child health and create a brighter future
             for every child. Your support makes it possible.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/volunteer" variant="white" size="lg">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              href="https://docs.google.com/forms/d/e/1FAIpQLSc45-Vnum5Q_kGUqy-OCVWuyHjdT6YvE1YODu7FF39XATF62A/viewform?usp=header"
+              variant="white"
+              size="lg"
+              external
+            >
               Volunteer With Us
             </Button>
             <Button href="/donate" variant="outline" size="lg"
               className="border-white text-white hover:bg-white hover:!text-primary">
               Donate Now
             </Button>
-            <Button href="/volunteer#partner" variant="outline" size="lg"
-              className="border-white/60 text-white hover:bg-white/10">
+            <Button
+              href="https://forms.gle/DrKn2VzfK66XzzKJ6"
+              variant="outline"
+              size="lg"
+              external
+              className="border-white/60 text-white hover:bg-white/10"
+            >
               Become a Partner
             </Button>
           </div>

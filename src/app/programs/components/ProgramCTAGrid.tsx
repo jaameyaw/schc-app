@@ -17,6 +17,7 @@ interface CTA {
   description: string;
   href: string;
   color: "primary" | "teal";
+  external?: boolean;
 }
 
 const ctas: CTA[] = [
@@ -24,15 +25,17 @@ const ctas: CTA[] = [
     icon: HandHeart,
     title: "Want to partner with us?",
     description: "Help provide uniforms and keep children in school.",
-    href: "/volunteer#partner",
+    href: "https://forms.gle/DrKn2VzfK66XzzKJ6",
     color: "primary",
+    external: true,
   },
   {
     icon: HeartHandshake,
     title: "Interested in volunteering?",
     description: "Join us in feeding and caring for vulnerable children.",
-    href: "/volunteer",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLSc45-Vnum5Q_kGUqy-OCVWuyHjdT6YvE1YODu7FF39XATF62A/viewform?usp=header",
     color: "teal",
+    external: true,
   },
   {
     icon: Heart,
@@ -45,8 +48,9 @@ const ctas: CTA[] = [
     icon: Users,
     title: "Let's build lasting change",
     description: "Partner with us to empower communities.",
-    href: "/volunteer#partner",
+    href: "https://forms.gle/DrKn2VzfK66XzzKJ6",
     color: "teal",
+    external: true,
   },
 ];
 
@@ -74,6 +78,8 @@ export default function ProgramCTAGrid() {
           >
             <Link
               href={cta.href}
+              target={cta.external ? "_blank" : undefined}
+              rel={cta.external ? "noopener noreferrer" : undefined}
               className={`group block h-full bg-white rounded-2xl p-5 md:p-6 lg:p-5 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(31,45,47,0.06)] ring-1 ring-transparent ${ringHover} hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(31,45,47,0.12)] transition-all duration-300`}
             >
               <div className="flex items-start gap-4 lg:gap-3">
