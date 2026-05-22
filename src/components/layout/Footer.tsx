@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Heart } from "lucide-react";
 import Particles from "@/components/ui/Particles";
 
 const quickLinks = [
@@ -14,11 +15,26 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", label: "Facebook", icon: FacebookIcon },
-  { href: "#", label: "Instagram", icon: InstagramIcon },
-  { href: "#", label: "YouTube", icon: YouTubeIcon },
-  { href: "#", label: "TikTok", icon: TikTokIcon },
-  { href: "#", label: "LinkedIn", icon: LinkedInIcon },
+  {
+    href: "https://www.instagram.com/chc_kidshealth?igsh=MW1hZDVpeDZmbmJheg==",
+    label: "Instagram",
+    icon: InstagramIcon,
+  },
+  {
+    href: "https://youtube.com/@childhealthcorner?si=VgWVhuEE0T4ojxzK",
+    label: "YouTube",
+    icon: YouTubeIcon,
+  },
+  {
+    href: "https://www.tiktok.com/@chc_kidshealth?_r=1&_t=ZS-96Dp9xARa1R",
+    label: "TikTok",
+    icon: TikTokIcon,
+  },
+  {
+    href: "https://www.linkedin.com/company/child-health-corner/",
+    label: "LinkedIn",
+    icon: LinkedInIcon,
+  },
 ];
 
 const programLinks = [
@@ -56,11 +72,11 @@ export default function Footer() {
 
       <Particles count={14} />
 
-      <div className="relative w-full px-6 lg:px-12 xl:px-20 pt-16 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-10 lg:gap-10 lg:gap-x-14 xl:gap-12">
+      <div className="relative w-full px-6 sm:px-8 lg:px-8 xl:px-12 2xl:px-20 pt-16 pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-10 lg:gap-x-10 lg:gap-y-12 xl:gap-12">
 
-          {/* Brand — spans 2 cols on lg */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          {/* Brand — row 1 left on lg (with Quick Links); col 1 on xl+ */}
+          <div className="sm:col-span-2 lg:col-span-1 xl:col-span-1 min-w-0">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <Image
                 src="/images/logo.jpeg"
@@ -77,7 +93,7 @@ export default function Footer() {
               </div>
             </Link>
 
-            <p className="text-gray-300 text-base leading-relaxed mb-5 max-w-sm">
+            <p className="text-gray-300 text-base leading-relaxed mb-5 max-w-sm lg:max-w-none">
               Empowering families and caregivers to prioritize children&apos;s health
               through education, advocacy, and community engagement.
             </p>
@@ -91,6 +107,8 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noreferrer"
                   aria-label={label}
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-200"
                 >
@@ -107,8 +125,8 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Quick Links */}
-          <div className="xl:pl-12">
+          {/* Quick Links — row 1 right on lg */}
+          <div className="min-w-0 lg:pl-4 xl:pl-6">
             <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
               Quick Links
             </h3>
@@ -127,7 +145,7 @@ export default function Footer() {
           </div>
 
           {/* Programs */}
-          <div className="xl:pl-10">
+          <div className="min-w-0">
             <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
               Programs
             </h3>
@@ -146,16 +164,14 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="min-w-0">
             <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
               Contact Us
             </h3>
             <ul className="space-y-4 text-gray-300 text-base">
               <li className="flex items-start gap-2.5">
-                <LocationIcon className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
-                <span className="hover:text-primary transition-colors">
-                  Kumasi, Ghana
-                </span>
+                <MapPinIcon className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
+                <span>Kumasi, Ghana</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <MailIcon className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
@@ -174,6 +190,15 @@ export default function Footer() {
                   </a>
                 </div>
               </li>
+              <li>
+                <Link
+                  href="/donate"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white text-sm font-semibold rounded-full hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-md shadow-primary/20"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  Donate
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -182,15 +207,15 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="relative border-t border-white/10">
-        <div className="w-full px-6 lg:px-12 xl:px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-sm">
+        <div className="w-full px-6 sm:px-8 lg:px-8 xl:px-12 2xl:px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-sm">
           <p>&copy; {new Date().getFullYear()} Sylfi&apos;s Child Health Corner (SCHC). All rights reserved.</p>
-          <p className="text-white/30 flex items-center gap-1.5">
-            Made with <HeartIcon className="w-4 h-4 text-primary" /> by{" "}
+          <p className="text-white/30">
+            Made with &#9829; by{" "}
             <a
               href={johnsonGithubUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-white/70 hover:text-primary transition-colors duration-200"
+              className="text-white/70 hover:text-primary transition-colors underline underline-offset-4 decoration-white/20 hover:decoration-primary"
             >
               Johnson Ameyaw
             </a>
@@ -242,33 +267,6 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
-function HeartIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M11.646 20.713l-1.012-.921C5.4 15.005 2 11.911 2 8.5 2 5.686 4.239 3.5 7.05 3.5c1.54 0 3.04.72 4 1.86.96-1.14 2.46-1.86 4-1.86C17.761 3.5 20 5.686 20 8.5c0 3.411-3.4 6.505-8.634 11.292l-1.012.921a.5.5 0 0 1-.708 0z" />
-    </svg>
-  );
-}
-
-function LocationIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M19 11c0 5-7 10-7 10s-7-5-7-10a7 7 0 1 1 14 0z"
-      />
-    </svg>
-  );
-}
-
 function MailIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -281,6 +279,15 @@ function PhoneIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+    </svg>
+  );
+}
+
+function MapPinIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
     </svg>
   );
 }
