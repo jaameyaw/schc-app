@@ -63,7 +63,7 @@ export default function VolunteerPage() {
         cardClassName="flex items-center gap-2.5 bg-primary/5 border border-primary/10 rounded-lg px-4 py-3 text-sm text-dark-text font-medium"
         iconClassName="w-5 h-5 text-primary shrink-0"
         button={{
-          href: "https://docs.google.com/forms/u/0/",
+          href: "https://docs.google.com/forms/d/e/1FAIpQLSc45-Vnum5Q_kGUqy-OCVWuyHjdT6YvE1YODu7FF39XATF62A/viewform?usp=header",
           label: "Apply to Volunteer",
           variant: "primary",
           external: true,
@@ -98,7 +98,7 @@ export default function VolunteerPage() {
         cardClassName="flex items-center gap-2.5 bg-white rounded-lg px-4 py-3 text-sm text-dark-text font-medium"
         iconClassName="w-5 h-5 text-teal shrink-0"
         button={{
-          href: "https://forms.google.com",
+          href: "https://forms.gle/DrKn2VzfK66XzzKJ6",
           label: "Become a Partner",
           variant: "teal",
           external: true,
