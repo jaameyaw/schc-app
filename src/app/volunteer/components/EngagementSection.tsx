@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import {
+  volunteerEyebrow,
+  volunteerH2,
+  volunteerH3,
+  volunteerSectionLead,
+} from "../volunteerTypography";
+import VolunteerBackdrop from "./VolunteerBackdrop";
 import type { LucideIcon } from "lucide-react";
 
 export type EngagementItem = {
@@ -10,11 +17,9 @@ export type EngagementItem = {
 
 interface EngagementSectionProps {
   id?: string;
+  backdrop?: "primary" | "teal";
   sectionClassName: string;
-  badge: {
-    text: string;
-    className: string;
-  };
+  badge: string;
   title: string;
   description: string;
   listTitle: string;
@@ -38,6 +43,7 @@ interface EngagementSectionProps {
 
 export default function EngagementSection({
   id,
+  backdrop,
   sectionClassName,
   badge,
   title,
@@ -55,8 +61,9 @@ export default function EngagementSection({
   const imageShadowClassName = image.shadowClassName ?? "shadow-lg";
 
   return (
-    <section id={id} className={sectionClassName}>
-      <div className="max-w-[1400px] xl:max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
+    <section id={id} className={`isolate ${sectionClassName}`}>
+      {backdrop ? <VolunteerBackdrop variant={backdrop} /> : null}
+      <div className="relative z-10 max-w-[1400px] xl:max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -65,15 +72,11 @@ export default function EngagementSection({
             transition={{ duration: 0.6 }}
             className={contentOrder}
           >
-            <span className={badge.className}>{badge.text}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark-text leading-tight mb-5">
-              {title}
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-5 max-w-xl">
-              {description}
-            </p>
+            <span className={volunteerEyebrow}>{badge}</span>
+            <h2 className={`${volunteerH2} mb-5`}>{title}</h2>
+            <p className={`${volunteerSectionLead} mb-5`}>{description}</p>
 
-            <h3 className="font-semibold text-dark-text mb-3">{listTitle}</h3>
+            <h3 className={`${volunteerH3} mb-3`}>{listTitle}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {items.map((item) => (
                 <div key={item.label} className={cardClassName}>
