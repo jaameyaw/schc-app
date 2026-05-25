@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Heart } from "lucide-react";
+import ProgramFeaturesPanel from "./ProgramFeaturesPanel";
 
 export interface ProgramCardProps {
   id: string;
@@ -34,12 +35,22 @@ export default function ProgramCard({
     : "from-primary/60 via-primary/30 to-teal/30";
   const accentText = isTeal ? "text-teal" : "text-primary";
   const accentBg = isTeal ? "bg-teal" : "bg-primary";
-  const accentTint = isTeal ? "bg-teal/10" : "bg-primary/10";
-  const accentTintHover = isTeal ? "hover:bg-teal/20" : "hover:bg-primary/20";
   const accentBorder = isTeal ? "border-teal/20" : "border-primary/20";
-  const accentBorderHover = isTeal
-    ? "hover:border-teal/40"
-    : "hover:border-primary/40";
+  const iconRingGradient = isTeal
+    ? "from-teal via-aqua/80 to-teal/50"
+    : "from-primary via-primary/70 to-teal/40";
+  const iconGlow = isTeal
+    ? "group-hover/feature:shadow-[0_0_28px_-4px_rgba(39,194,199,0.45)]"
+    : "group-hover/feature:shadow-[0_0_28px_-4px_rgba(52,199,89,0.4)]";
+  const accentCardHover = isTeal
+    ? "hover:border-teal/20"
+    : "hover:border-primary/20";
+  const featureShadow = isTeal
+    ? "hover:shadow-[0_14px_40px_-16px_rgba(39,194,199,0.28)]"
+    : "hover:shadow-[0_14px_40px_-16px_rgba(52,199,89,0.28)]";
+  const ctaBg = isTeal
+    ? "bg-teal hover:bg-teal/90 shadow-[0_12px_32px_-12px_rgba(39,194,199,0.45)]"
+    : "bg-primary hover:bg-primary-dark shadow-[0_12px_32px_-12px_rgba(52,199,89,0.4)]";
   const SloganIcon = isTeal ? Heart : null;
   const reverseOnDesktop = index % 2 === 1;
 
@@ -52,77 +63,105 @@ export default function ProgramCard({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`scroll-mt-24 group relative flex flex-col ${
         reverseOnDesktop ? "xl:flex-row-reverse" : "xl:flex-row"
-      } items-stretch gap-6 md:gap-10 xl:gap-14`}
+      } items-stretch gap-8 md:gap-10 xl:gap-16 2xl:gap-24`}
     >
       {/* Image panel */}
-      <div className="relative w-full xl:w-[55%] flex-shrink-0">
+      <div
+        className={`relative w-full flex-shrink-0 xl:w-[54%] ${
+          reverseOnDesktop ? "xl:pl-2" : "xl:pr-2"
+        }`}
+      >
         <div
-          className={`relative rounded-3xl bg-gradient-to-br ${ringGradient} p-[2px] shadow-[0_20px_60px_-20px_rgba(31,45,47,0.25)] transition-all duration-500 group-hover:shadow-[0_30px_80px_-20px_rgba(31,45,47,0.35)]`}
+          className={`relative rounded-[1.65rem] bg-gradient-to-br ${ringGradient} p-[2px] shadow-[0_24px_64px_-24px_rgba(31,45,47,0.28)] transition-shadow duration-500 group-hover:shadow-[0_32px_80px_-24px_rgba(31,45,47,0.34)] xl:rounded-[1.85rem]`}
         >
-          <div className="relative overflow-hidden rounded-[22px] aspect-[4/3] md:aspect-[5/4] xl:aspect-[4/3] bg-light-bg">
+          <div className="relative overflow-hidden rounded-[1.45rem] aspect-[4/3] bg-light-bg md:aspect-[5/4] xl:aspect-[4/3] xl:rounded-[1.7rem]">
             <Image
               src={image}
               alt={title}
               fill
-              sizes="(min-width: 1280px) 55vw, 100vw"
-              className="object-cover object-[center_30%] transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+              sizes="(min-width: 1280px) 54vw, 100vw"
+              className="object-cover object-[center_30%] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-text/40 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-text/45 via-dark-text/5 to-transparent" />
           </div>
 
-          {/* Floating category pill */}
           <div
-            className={`absolute -bottom-4 ${
-              reverseOnDesktop ? "right-6 md:right-8" : "left-6 md:left-8"
-            } z-10`}
+            className={`absolute -bottom-4 z-10 ${
+              reverseOnDesktop ? "right-5 md:right-7" : "left-5 md:left-7"
+            }`}
           >
             <span
-              className={`inline-flex items-center gap-1.5 bg-white px-4 py-2 rounded-full text-xs font-semibold ${accentText} shadow-lg shadow-black/5 border ${accentBorder}`}
+              className={`inline-flex items-center gap-1.5 rounded-xl border bg-white/95 px-3.5 py-2 text-xs font-semibold backdrop-blur-sm ${accentText} ${accentBorder} shadow-[0_8px_24px_-8px_rgba(31,45,47,0.2)]`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${accentBg}`} />
               {category}
             </span>
           </div>
         </div>
+
+        <span
+          className={`pointer-events-none absolute -bottom-6 hidden font-section text-[5.5rem] font-bold leading-none tracking-tighter opacity-[0.04] xl:block ${
+            reverseOnDesktop ? "left-4" : "right-4"
+          } ${accentText}`}
+          aria-hidden
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
       {/* Content panel */}
-      <div className="w-full xl:w-[45%] flex flex-col justify-center pt-6 xl:pt-0">
-        <h2 className="text-[1.65rem] sm:text-3xl lg:text-[2.1rem] font-semibold text-dark-text leading-[1.12] tracking-tight mb-3">
+      <div className="flex w-full flex-col justify-center pt-2 xl:w-[46%] xl:pt-0">
+        <p
+          className={`mb-2 font-section text-[0.68rem] font-semibold tracking-[0.14em] ${accentText}`}
+        >
+          Program {String(index + 1).padStart(2, "0")}
+        </p>
+
+        <h2 className="font-section text-[1.75rem] font-semibold leading-[1.08] tracking-tight text-balance text-dark-text sm:text-3xl lg:text-[2.15rem]">
           {title}
         </h2>
 
-        <p
-          className={`inline-flex items-start gap-2 text-[0.95rem] sm:text-base font-semibold ${accentText} mb-4 tracking-tight`}
+        <blockquote
+          className={`relative mt-4 mb-6 border-l-[3px] pl-4 sm:pl-5 ${
+            isTeal ? "border-teal/45" : "border-primary/45"
+          }`}
         >
-          {SloganIcon ? (
-            <SloganIcon className="w-4 h-4 mt-1 shrink-0" />
-          ) : null}
-          <span>&ldquo;{slogan}&rdquo;</span>
-        </p>
+          <p
+            className={`inline-flex items-start gap-2 text-[0.95rem] font-medium leading-snug sm:text-base ${accentText} text-pretty`}
+          >
+            {SloganIcon ? (
+              <SloganIcon className="mt-1 h-4 w-4 shrink-0" strokeWidth={2} />
+            ) : null}
+            <span>&ldquo;{slogan}&rdquo;</span>
+          </p>
+        </blockquote>
 
-        <p className="text-gray-600 text-[0.95rem] sm:text-base leading-[1.7] mb-6">
+        <p className="mb-2 max-w-[65ch] text-[0.95rem] leading-[1.8] text-gray-600 text-pretty sm:text-base">
           {description}
         </p>
 
-        {/* Feature chips */}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 mb-6">
-          {features.map((f) => (
-            <li
-              key={f}
-              className={`text-[0.8rem] sm:text-sm font-semibold text-dark-text/80 ${accentTint} ${accentTintHover} border ${accentBorder} ${accentBorderHover} rounded-xl px-3 py-2 leading-snug transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-18px_rgba(15,23,42,0.45)]`}
-            >
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
+        <ProgramFeaturesPanel
+          programId={id}
+          features={features}
+          isTeal={isTeal}
+          accentText={accentText}
+          accentBg={accentBg}
+          accentBorder={accentBorder}
+          iconRingGradient={iconRingGradient}
+          iconGlow={iconGlow}
+          featureShadow={featureShadow}
+          accentCardHover={accentCardHover}
+        />
 
         <Link
           href="/volunteer"
-          className={`inline-flex items-center gap-2 text-[0.95rem] font-semibold ${accentText} hover:gap-3 transition-all duration-300 w-fit`}
+          className={`inline-flex w-fit items-center gap-2 rounded-full px-5 py-2.5 text-[0.9rem] font-semibold text-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:gap-3 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${ctaBg} ${
+            isTeal
+              ? "focus-visible:ring-teal"
+              : "focus-visible:ring-primary"
+          }`}
         >
-          Get Involved
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          Get involved
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </Link>
       </div>
     </motion.article>
