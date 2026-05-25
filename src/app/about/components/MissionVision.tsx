@@ -11,6 +11,16 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import {
+  aboutCardBody,
+  aboutEyebrow,
+  aboutH2,
+  aboutH3,
+  aboutH3Section,
+  aboutSectionLead,
+  aboutSectionPad,
+  aboutSurfaceElevated,
+} from "../aboutTypography";
 
 const visionItems = [
   "Quality healthcare for every child",
@@ -37,15 +47,18 @@ const visionItemVariants: Variants = {
 
 export default function MissionVision() {
   return (
-    <section className="py-20 bg-light-bg">
-      <div className="max-w-[1400px] xl:max-w-[1600px] mx-auto px-6 lg:px-12 xl:px-20">
-        <div className="text-center mb-14">
-          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary bg-green-50 rounded-full mb-3">
-            Our Purpose
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-dark-text">
-            Mission &amp; Vision
-          </h2>
+    <section className={`relative overflow-hidden bg-light-bg ${aboutSectionPad}`}>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-teal/[0.05] blur-3xl"
+      />
+      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-12 xl:max-w-[1600px] xl:px-20">
+        <div className="mb-14 text-center sm:mb-16">
+          <span className={`${aboutEyebrow} mb-3`}>Our Purpose</span>
+          <h2 className={aboutH2}>Mission &amp; Vision</h2>
+          <p className={`${aboutSectionLead} mt-2`}>
+            Clear direction for every program, partnership, and community we serve.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -55,7 +68,7 @@ export default function MissionVision() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="group relative overflow-hidden bg-white rounded-2xl px-8 pt-10 pb-10 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_20px_-8px_rgba(31,168,74,0.12)] border-t-4 border-primary hover:-translate-y-1 hover:shadow-[0_2px_4px_rgba(0,0,0,0.04),0_12px_32px_-8px_rgba(31,168,74,0.2)] transition-all duration-500"
+            className={`group relative overflow-hidden border-t-4 border-primary px-8 pb-10 pt-10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(31,168,74,0.22)] ${aboutSurfaceElevated}`}
           >
             {/* Subtle dot pattern, top-right */}
             <svg
@@ -81,11 +94,9 @@ export default function MissionVision() {
                 <Target className="w-6 h-6 text-primary" strokeWidth={2.2} />
                 <span className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-primary/30" />
               </div>
-              <h3 className="text-xl font-bold text-dark-text mb-2.5 tracking-tight">
-                Our Mission
-              </h3>
+              <h3 className={`${aboutH3} mb-2.5`}>Our Mission</h3>
               <span className="block h-[3px] w-10 bg-primary rounded-full mb-5" />
-              <p className="text-gray-600 leading-relaxed max-w-prose">
+              <p className={`${aboutCardBody} max-w-[65ch]`}>
                 Empowering families and caregivers to prioritize children&apos;s
                 health and well-being, fostering a supportive community that
                 promotes education, advocacy, and access to quality healthcare
@@ -145,7 +156,7 @@ export default function MissionVision() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="group relative overflow-hidden bg-white rounded-2xl px-8 pt-10 pb-10 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_20px_-8px_rgba(39,194,199,0.14)] border-t-4 border-teal hover:-translate-y-1 hover:shadow-[0_2px_4px_rgba(0,0,0,0.04),0_12px_32px_-8px_rgba(39,194,199,0.24)] transition-all duration-500"
+            className={`group relative overflow-hidden border-t-4 border-teal px-8 pb-10 pt-10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(39,194,199,0.24)] ${aboutSurfaceElevated}`}
           >
             {/* Concentric ring decoration, top-right */}
             <svg
@@ -166,11 +177,9 @@ export default function MissionVision() {
                 <Eye className="w-6 h-6 text-teal" strokeWidth={2.2} />
                 <span className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-teal/30" />
               </div>
-              <h3 className="text-xl font-bold text-dark-text mb-2.5 tracking-tight">
-                Our Vision
-              </h3>
+              <h3 className={`${aboutH3} mb-2.5`}>Our Vision</h3>
               <span className="block h-[3px] w-10 bg-teal rounded-full mb-5" />
-              <p className="text-gray-600 leading-relaxed mb-5 max-w-prose">
+              <p className={`${aboutCardBody} mb-5 max-w-[65ch]`}>
                 Transforming the lives of children and their families through
                 innovative education, compassionate support, and inclusive
                 advocacy — ensuring a world where every child thrives.
@@ -187,7 +196,7 @@ export default function MissionVision() {
                     <motion.li
                       key={item}
                       variants={visionItemVariants}
-                      className="group relative overflow-hidden rounded-xl border border-teal/10 bg-white/85 px-4 py-3 text-sm text-gray-700 shadow-[0_6px_16px_-12px_rgba(39,194,199,0.35)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-[1px]"
+                      className="group relative overflow-hidden rounded-xl border border-teal/10 bg-white/85 px-4 py-3 text-[0.95rem] leading-snug text-pretty text-gray-600 shadow-[0_6px_16px_-12px_rgba(39,194,199,0.35)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-[1px] sm:text-base"
                     >
                       <span className="absolute left-0 top-0 h-full w-1 bg-teal/30" />
                       <span className="relative block leading-snug">
@@ -203,7 +212,7 @@ export default function MissionVision() {
 
         {/* Core Objectives */}
         <div>
-          <h3 className="text-2xl font-bold text-dark-text text-center mb-2.5 tracking-tight">
+          <h3 className={`${aboutH3Section} text-center mb-2.5`}>
             Core Objectives
           </h3>
           <span className="block h-[3px] w-12 bg-primary rounded-full mx-auto mb-10" />
@@ -233,17 +242,17 @@ export default function MissionVision() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative overflow-hidden bg-white rounded-2xl px-6 pt-9 pb-20 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_16px_-8px_rgba(31,168,74,0.08)] text-center hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(0,0,0,0.04),0_16px_36px_-12px_rgba(31,168,74,0.22)] transition-all duration-500"
+                className={`group relative overflow-hidden px-6 pb-20 pt-9 text-center transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-16px_rgba(31,168,74,0.2)] ${aboutSurfaceElevated}`}
               >
                 <div className="relative z-10">
                   <div className="relative w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-primary/10 transition-transform duration-500 group-hover:scale-105">
                     <obj.icon className="w-7 h-7 text-primary" strokeWidth={2} />
                   </div>
-                  <h4 className="font-semibold text-dark-text mb-2 tracking-tight">
+                  <h4 className="text-[1.05rem] font-semibold leading-tight tracking-tight text-dark-text mb-2 sm:text-[1.1rem]">
                     {obj.title}
                   </h4>
                   <span className="block h-[3px] w-8 bg-primary rounded-full mx-auto mb-4" />
-                  <p className="text-sm text-gray-500 leading-relaxed px-1">
+                  <p className={`${aboutCardBody} px-1`}>
                     {obj.desc}
                   </p>
                 </div>
