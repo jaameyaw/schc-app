@@ -8,6 +8,7 @@
   --color-dark-text: #1F2D2F;
   --color-light-bg: #F5F7F7;
   --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-section: var(--font-geist-sans), "Poppins", system-ui, sans-serif;
   --width-7xl: 87.5rem;
 }
 
