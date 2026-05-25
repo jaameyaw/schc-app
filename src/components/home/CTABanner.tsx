@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import Particles from "@/components/ui/Particles";
+import { sectionEyebrowHeroStyles } from "@/lib/sectionEyebrow";
 
 export default function CTABanner() {
   return (
@@ -16,9 +17,9 @@ export default function CTABanner() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-white/70 text-sm font-semibold uppercase tracking-widest mb-3">
+          <span className={`${sectionEyebrowHeroStyles} mb-3`}>
             Join the Movement
-          </p>
+          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
             Be the Reason a Child
             <br className="hidden sm:block" /> Smiles Today
