@@ -2,34 +2,116 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { Play } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Particles from "@/components/ui/Particles";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
+const gridImageVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] as const },
+  }),
 };
 
-const stats = [
-  { value: "400+", label: "Children Reached" },
-  { value: "10+", label: "Communities" },
-  { value: "6+", label: "Programs Active" },
+const heroImageColumns: {
+  images: { src: string; alt: string; flex: string }[];
+}[] = [
+  {
+    images: [
+      {
+        src: "/images/IMG_7521.jpg",
+        alt: "School outreach with children and caregivers",
+        flex: "flex-[1.42]",
+      },
+      {
+        src: "/images/IMG_8557.jpg",
+        alt: "Children at a community health event",
+        flex: "flex-[0.92]",
+      },
+    ],
+  },
+  {
+    images: [
+      {
+        src: "/images/IMG_8989.jpg",
+        alt: "SCHC volunteers preparing meals for families",
+        flex: "flex-[0.92]",
+      },
+      {
+        src: "/images/IMG_8638.jpg",
+        alt: "Hands-on care during a child health screening",
+        flex: "flex-[1.42]",
+      },
+    ],
+  },
 ];
+
+const IMPACT_STORY_VIDEO_URL =
+  "https://youtu.be/CVoC3DHknhg?si=KuGSEN7w5-9AcuIw";
+
+const supporterAvatars = [
+  { src: "/images/volunteer1.jpg", alt: "SCHC volunteer" },
+  { src: "/images/volunteer2.jpg", alt: "SCHC volunteer" },
+  { src: "/images/thumbnail/thumbnail-mother.jpg", alt: "Community mother supported by SCHC" },
+  { src: "/images/thumbnail/thumbnail-afriyie.jpg", alt: "Community member at an outreach" },
+];
+
+function HeroImageCell({
+  src,
+  alt,
+  index,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  index: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      custom={index}
+      variants={gridImageVariants}
+      initial="hidden"
+      animate="visible"
+      className={`relative min-h-0 overflow-hidden rounded-xl shadow-xl lg:rounded-2xl min-[1440px]:rounded-[1.25rem] min-[1440px]:shadow-2xl ${className}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 1440px) 26vw, (min-width: 1024px) 28vw, 90vw"
+        className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
+        priority={index === 0}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
+      />
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#1FA84A] via-[#27C2C7] to-[#34C759] min-h-[88vh] flex items-center">
-      <Particles count={40} />
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#1FA84A] via-[#27C2C7] to-[#34C759] min-h-[88vh] lg:min-h-[72vh] xl:min-h-[75vh] flex items-center">
+      <Particles count={50} />
 
       {/* Floating decorative shapes */}
       <motion.div
@@ -50,23 +132,25 @@ export default function Hero() {
 
       <div className="hidden sm:block absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
 
-      <div className="relative w-full px-6 lg:px-8 xl:px-20 py-16 lg:py-12 xl:py-14 2xl:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 xl:gap-16 2xl:gap-24 items-center">
-
-          {/* LEFT — Text */}
+      <div className="relative mx-auto w-full max-w-7xl px-6 py-20 sm:py-24 lg:px-8 lg:py-10 xl:px-16 xl:py-12 min-[1440px]:max-w-[90rem] min-[1440px]:px-20 min-[1440px]:py-20">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-6 xl:gap-8 min-[1440px]:gap-x-16 min-[1440px]:gap-y-12">
+          {/* Left — copy */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+            className="flex min-w-0 flex-col items-center text-center lg:items-start lg:text-left"
           >
-            <motion.p variants={itemVariants} className="text-white/80 text-xs font-semibold uppercase tracking-widest mb-4">
+            <motion.p
+              variants={itemVariants}
+              className="mb-3 max-w-md text-xs font-medium tracking-wide text-white/70 sm:text-[0.8rem] lg:mb-3 lg:text-[0.75rem] xl:text-[0.85rem] min-[1440px]:mb-5 min-[1440px]:text-[0.9rem] min-[1440px]:tracking-[0.02em]"
+            >
               Sylfi&apos;s Child Health Corner
             </motion.p>
 
             <motion.h1
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-5xl 2xl:text-6xl font-bold text-white leading-tight mb-5"
+              className="mb-4 max-w-xl text-balance text-[1.75rem] font-bold leading-[1.12] tracking-tight text-white sm:text-[2rem] lg:mb-4 lg:text-[1.75rem] lg:leading-[1.12] xl:text-[2rem] min-[1440px]:mb-6 min-[1440px]:max-w-2xl min-[1440px]:text-[3.15rem] min-[1440px]:leading-[1.08] min-[1440px]:tracking-[-0.03em] 2xl:mb-7 2xl:text-[3.35rem]"
             >
               Every Child Deserves a{" "}
               <span className="underline decoration-white/50 decoration-4 underline-offset-4">
@@ -75,141 +159,127 @@ export default function Hero() {
               in Life
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-white/85 text-sm xl:text-[0.95rem] leading-relaxed mb-8 max-w-md">
+            <motion.p
+              variants={itemVariants}
+              className="mb-6 max-w-[36ch] text-sm font-normal leading-relaxed text-white/85 lg:mb-5 lg:text-[0.9rem] lg:leading-[1.65] xl:mb-6 xl:max-w-[38ch] xl:text-base min-[1440px]:mb-10 min-[1440px]:max-w-[42ch] min-[1440px]:text-[1.05rem] min-[1440px]:leading-[1.8]"
+            >
               We empower families and caregivers to prioritize children&apos;s
               health through education, advocacy, and community engagement.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
-              <Button href="/volunteer" variant="white" size="sm" className="sm:!px-8 sm:!py-4 sm:!text-base">
-                Volunteer With Us
-              </Button>
+            <motion.div
+              variants={itemVariants}
+              className="mb-6 flex w-full max-w-sm flex-col items-center gap-3 md:max-w-none md:flex-row md:justify-center md:gap-2.5 lg:mb-6 lg:flex-col lg:items-start lg:gap-3 xl:mb-8 min-[1440px]:mb-12 min-[1440px]:gap-4"
+            >
+              <div className="flex flex-col items-center gap-3 md:flex-row md:gap-2.5 lg:justify-start min-[1440px]:gap-4">
+                <Button
+                  href="/volunteer"
+                  variant="white"
+                  size="sm"
+                  className="!rounded-xl !px-6 !py-3 !text-sm !font-semibold lg:!px-7 lg:!text-[0.9rem] xl:!px-8 xl:!py-3.5 xl:!text-base min-[1440px]:!px-9 min-[1440px]:!py-4 min-[1440px]:!text-[1.05rem] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Volunteer With Us
+                </Button>
+                <Link
+                  href={IMPACT_STORY_VIDEO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Watch our impact story video on YouTube (opens in new tab)"
+                  className="group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white text-primary shadow-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:h-12 xl:w-12 min-[1440px]:h-[3.25rem] min-[1440px]:w-[3.25rem]"
+                >
+                  <Play
+                    size={16}
+                    className="ml-0.5 fill-primary stroke-primary xl:size-[18px] min-[1440px]:size-5"
+                    aria-hidden
+                  />
+                </Link>
+              </div>
               <Button
                 href="/about"
                 variant="outline"
                 size="sm"
-                className="border-white text-white hover:bg-white hover:!text-primary sm:!px-8 sm:!py-4 sm:!text-base"
+                className="!rounded-xl border-white/35 !px-6 !py-2.5 !text-sm !font-medium !text-white hover:!bg-white/10 hover:!text-white lg:!px-7 xl:!px-7 xl:!py-3 xl:!text-[0.95rem] min-[1440px]:!px-8 min-[1440px]:!py-3.5 min-[1440px]:!text-base focus-visible:ring-white"
               >
                 Learn More
               </Button>
             </motion.div>
 
-            {/* Inline stats — only visible alongside the collage (below lg) */}
-            <motion.div variants={itemVariants} className="lg:hidden flex flex-wrap justify-center gap-4 sm:gap-8">
-              {stats.map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className={`flex flex-col items-center ${i !== 0 ? "border-l border-white/20 pl-4 sm:pl-8" : ""}`}
-                >
-                  <p className="text-white text-lg sm:text-2xl font-bold leading-none">{stat.value}</p>
-                  <p className="text-white/65 text-[10px] sm:text-xs mt-1">{stat.label}</p>
+            {/* Supporter strip */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col items-center gap-2 sm:gap-3 lg:flex-row lg:items-center lg:justify-start xl:gap-4 min-[1440px]:mt-1 min-[1440px]:gap-6"
+            >
+              <div className="flex shrink-0 items-center">
+                {supporterAvatars.map((avatar, i) => (
+                  <div
+                    key={avatar.src}
+                    className="relative -ml-2 first:ml-0 h-9 w-9 overflow-hidden rounded-full border-2 border-primary-dark ring-1 ring-white/20 lg:h-10 lg:w-10 min-[1440px]:-ml-2.5 min-[1440px]:h-12 min-[1440px]:w-12"
+                    style={{ zIndex: supporterAvatars.length - i }}
+                  >
+                    <Image
+                      src={avatar.src}
+                      alt={avatar.alt}
+                      fill
+                      sizes="(min-width: 1440px) 48px, 40px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+                <div className="relative z-10 -ml-2 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary-dark bg-white text-xs font-bold tabular-nums text-primary lg:h-10 lg:w-10 lg:text-sm min-[1440px]:-ml-2.5 min-[1440px]:h-12 min-[1440px]:w-12 min-[1440px]:text-[0.95rem]">
+                  400+
                 </div>
-              ))}
+              </div>
+              <p className="text-center text-xs leading-snug text-white/85 sm:text-sm lg:text-left min-[1440px]:text-base min-[1440px]:leading-relaxed">
+                <span className="font-medium text-white">Join our community</span>{" "}
+                <Link
+                  href="/volunteer"
+                  className="font-semibold text-white underline decoration-white/40 underline-offset-2 transition-colors hover:text-white/90 hover:decoration-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-sm"
+                >
+                  of supporters
+                </Link>
+              </p>
             </motion.div>
           </motion.div>
 
-          {/* RIGHT — Image panel */}
-          <div className="relative">
-
-            {/* ── Collage layout: mobile → tablet (hidden at lg+) ── */}
-            <div className="lg:hidden relative h-[420px] sm:h-[500px] w-full">
-              {/* Top-center */}
-              <motion.div
-                variants={imageVariants}
-                initial="hidden"
-                animate="visible"
-                className="absolute left-1/2 top-0 -translate-x-1/2 h-56 w-56 sm:h-64 sm:w-64 rounded-2xl p-1.5 shadow-2xl bg-white/15 backdrop-blur-sm"
-              >
-                <div className="relative w-full h-full rounded-xl overflow-hidden">
-                  <Image src="/images/IMG_7521.jpg" alt="School outreach program" fill sizes="256px" className="object-cover" priority />
+          {/* Right — staggered two-column image grid */}
+          <div className="w-full min-w-0 lg:max-w-none">
+            <div className="flex h-[min(22rem,52vw)] gap-2.5 sm:h-[min(24rem,48vw)] sm:gap-3 lg:h-[18rem] lg:gap-2.5 xl:h-[22rem] xl:gap-3 min-[1440px]:h-[28rem] min-[1440px]:gap-5 2xl:h-[30rem] 2xl:gap-6">
+              {heroImageColumns.map((column, colIndex) => (
+                <div
+                  key={colIndex}
+                  className="flex min-w-0 flex-1 flex-col gap-2.5 sm:gap-3 lg:gap-2.5 xl:gap-3.5 min-[1440px]:gap-5 2xl:gap-6"
+                >
+                  {column.images.map((img, rowIndex) => {
+                    const index = colIndex * 2 + rowIndex;
+                    return (
+                      <HeroImageCell
+                        key={img.src}
+                        src={img.src}
+                        alt={img.alt}
+                        index={index}
+                        className={img.flex}
+                      />
+                    );
+                  })}
                 </div>
-              </motion.div>
-
-              {/* Right-middle */}
-              <motion.div
-                variants={imageVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.1 }}
-                className="absolute right-0 top-[30%] h-48 w-48 sm:h-60 sm:w-60 rounded-2xl p-1.5 shadow-2xl bg-white/15 backdrop-blur-sm"
-              >
-                <div className="relative w-full h-full rounded-xl overflow-hidden">
-                  <Image src="/images/IMG_8989.jpg" alt="SCHC volunteers" fill sizes="240px" className="object-cover" />
-                </div>
-              </motion.div>
-
-              {/* Bottom-left */}
-              <motion.div
-                variants={imageVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.2 }}
-                className="absolute left-0 bottom-0 h-44 w-44 sm:h-56 sm:w-56 rounded-2xl p-1.5 shadow-2xl bg-white/15 backdrop-blur-sm"
-              >
-                <div className="relative w-full h-full rounded-xl overflow-hidden">
-                  <Image src="/images/IMG_8557.jpg" alt="Community children" fill sizes="224px" className="object-cover" />
-                </div>
-              </motion.div>
+              ))}
             </div>
-
-            {/* ── Previous layout: 1024px and above (lg+) ── */}
-            <div className="hidden lg:flex gap-3 items-stretch h-[360px] xl:h-[440px] 2xl:h-[500px]">
-              {/* Main tall image */}
-              <motion.div
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-                className="relative flex-[3] rounded-2xl overflow-hidden shadow-2xl"
-              >
-                <Image src="/images/IMG_7521.jpg" alt="Children receiving healthcare support" fill sizes="35vw" className="object-cover" priority />
-                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow">
-                  <p className="text-xs text-gray-500 font-medium">Communities</p>
-                  <p className="text-xl font-bold text-teal leading-none mt-0.5">10+</p>
-                </div>
-              </motion.div>
-
-              {/* Right column */}
-              <div className="flex-[2] flex flex-col gap-3">
-                <motion.div
-                  initial={{ opacity: 0, y: -12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="bg-white/15 backdrop-blur-md border border-white/25 rounded-xl px-5 py-4"
-                >
-                  <p className="text-white/70 text-[10px] uppercase tracking-widest font-semibold">Children Reached</p>
-                  <p className="text-white text-2xl xl:text-3xl font-bold leading-none mt-1.5">400+</p>
-                  <p className="text-white/55 text-xs mt-1">across Ghana</p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.45 }}
-                  className="relative flex-1 rounded-xl overflow-hidden shadow-xl"
-                >
-                  <Image src="/images/IMG_8989.jpg" alt="SCHC volunteers at work" fill sizes="25vw" className="object-cover" />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="bg-white/15 backdrop-blur-md border border-white/25 rounded-xl px-5 py-3"
-                >
-                  <p className="text-white/70 text-[10px] uppercase tracking-widest font-semibold">Programs Active</p>
-                  <p className="text-white text-2xl font-bold leading-none mt-1">6+</p>
-                </motion.div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
 
-      {/* Wave */}
-      <div className="hidden sm:block absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z" fill="#F5F7F7" />
+      {/* Wave — overlaps next section by 1px to avoid teal gradient hairline */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 leading-none translate-y-px">
+        <svg
+          viewBox="0 0 1440 60"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="block h-12 w-full sm:h-14 lg:h-16"
+        >
+          <path
+            d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z"
+            fill="var(--color-light-bg)"
+          />
         </svg>
       </div>
     </section>
