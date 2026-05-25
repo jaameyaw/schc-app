@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
 import AboutHero from "./components/AboutHero";
 import OurStory from "./components/OurStory";
 import MissionVision from "./components/MissionVision";
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <>
+    <div className={`${GeistSans.variable} font-section`}>
       <AboutHero />
       <OurStory />
       <MissionVision />
       <AboutImpactVideo />
       <Leadership />
       <CTABanner />
-    </>
+    </div>
   );
 }
