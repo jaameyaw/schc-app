@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { sectionEyebrow } from "@/lib/sectionEyebrow";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -21,9 +22,7 @@ export default function Newsletter() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-widest text-teal bg-teal/10 rounded-full mb-4">
-            Stay Connected
-          </span>
+          <span className={sectionEyebrow}>Stay Connected</span>
           <h2 className="text-2xl sm:text-3xl font-bold text-dark-text mb-3">
             Stay Updated with Our Work
           </h2>
