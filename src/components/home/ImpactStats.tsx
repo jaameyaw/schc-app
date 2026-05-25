@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, animate } from "framer-motion";
 import { Baby, HeartHandshake, Megaphone, Building2 } from "lucide-react";
+import { sectionEyebrow } from "@/lib/sectionEyebrow";
 
 const stats = [
   {
@@ -78,7 +79,7 @@ function CountUp({
 
 export default function ImpactStats() {
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-gray-50/60">
+    <section className="relative z-0 -mt-px py-16 sm:py-20 bg-gradient-to-b from-white to-gray-50/60">
       <div className="max-w-[1400px] xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-20">
 
         {/* Section heading — consistent pill style */}
@@ -88,9 +89,7 @@ export default function ImpactStats() {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-14"
         >
-          <span className="inline-block px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary bg-green-50 rounded-full mb-4">
-            Our Impact
-          </span>
+          <span className={sectionEyebrow}>Our Impact</span>
           <h2 className="text-[1.6rem] sm:text-[2rem] font-semibold tracking-tight leading-[1.1] text-dark-text">
             Making a Difference
           </h2>
