@@ -92,7 +92,6 @@ function PatternOverlay() {
 }
 
 interface MethodCardProps {
-  accent: string;
   accentBg: string;
   icon: React.ReactNode;
   title: string;
@@ -183,7 +182,6 @@ function MethodActionLink({
 }
 
 function MethodCard({
-  accent,
   accentBg,
   icon,
   title,
@@ -197,7 +195,6 @@ function MethodCard({
       variants={itemVariants}
       className={`group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-gray-100/80 bg-transparent shadow-[0_16px_48px_-20px_rgba(31,45,47,0.14)] transition-shadow duration-300 hover:shadow-[0_24px_56px_-18px_rgba(31,45,47,0.18)] ${className}`}
     >
-      <div className={`h-1 w-full ${accent}`} aria-hidden />
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="mb-4 flex items-start gap-3.5">
           <div
@@ -254,7 +251,6 @@ export default function DonationMethodsSection() {
           className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-7 xl:gap-8"
         >
           <MethodCard
-            accent="bg-[#FFCC00]"
             accentBg="bg-[#FFCC00]"
             icon={
               <span className="text-lg font-black tracking-tight text-[#1a1a1a]">
@@ -275,7 +271,6 @@ export default function DonationMethodsSection() {
           </MethodCard>
 
           <MethodCard
-            accent="bg-primary"
             accentBg="bg-primary/12 text-primary"
             icon={<Bank className="h-6 w-6" weight="duotone" aria-hidden />}
             title="Bank transfer"
@@ -296,7 +291,6 @@ export default function DonationMethodsSection() {
           </MethodCard>
 
           <MethodCard
-            accent="bg-teal"
             accentBg="bg-teal/12 text-teal"
             icon={<MapPin className="h-6 w-6" weight="duotone" aria-hidden />}
             title="Visit us"
@@ -334,7 +328,6 @@ export default function DonationMethodsSection() {
           </MethodCard>
 
           <MethodCard
-            accent="bg-primary-dark"
             accentBg="bg-primary-dark/12 text-primary-dark"
             icon={<Package className="h-6 w-6" weight="duotone" aria-hidden />}
             title="Donate items or call"

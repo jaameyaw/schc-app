@@ -73,7 +73,7 @@ export default function DonatePage() {
               size="lg"
               className="border-primary/70 text-primary bg-white/80 hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
             >
-              Jump to How to Give
+              Go to Donation Options
             </Button>
           </div>
         </div>
