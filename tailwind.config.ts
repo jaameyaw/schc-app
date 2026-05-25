@@ -17,7 +17,8 @@ const config: Config = {
         "light-bg": "#F5F7F7",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        section: ["var(--font-geist-sans)", "var(--font-poppins)", "system-ui", "sans-serif"],
       },
       fontSize: {
         "hero": ["clamp(2.5rem,5vw,4rem)", { lineHeight: "1.15", fontWeight: "700" }],
