@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  aboutEyebrow,
+  aboutH2Centered,
+  aboutH3,
+  aboutSectionLead,
+  aboutSectionPad,
+  aboutSurfaceCard,
+} from "../aboutTypography";
 
 const leaders = [
   {
@@ -51,22 +59,13 @@ const leaders = [
   },
 ];
 
-/* Role badge colors — mirror the navbar active-link palette */
 const roleColors = [
-  "bg-primary/[0.08] text-primary",
-  "bg-teal/[0.08] text-teal",
-  "bg-aqua/20 text-[#1FAAB0]",
-  "bg-green-100/60 text-primary-dark",
+  "bg-primary/[0.08] text-primary ring-primary/15",
+  "bg-teal/[0.08] text-teal ring-teal/15",
+  "bg-aqua/20 text-[#1FAAB0] ring-[#1FAAB0]/20",
+  "bg-green-100/60 text-primary-dark ring-primary/10",
 ];
 
-const dotColors = [
-  "bg-primary",
-  "bg-teal",
-  "bg-[#1FAAB0]",
-  "bg-primary-dark",
-];
-
-/* Gradient fallback backgrounds when no photo */
 const fallbackGradients = [
   "from-primary/30 to-teal/30",
   "from-teal/30 to-aqua/30",
@@ -84,7 +83,6 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-
 function LeaderCard({
   person,
   index,
@@ -94,77 +92,65 @@ function LeaderCard({
 }) {
   const [imgError, setImgError] = useState(false);
   const roleColor = roleColors[index % roleColors.length];
-  const dotColor  = dotColors[index % dotColors.length];
-  const gradient  = fallbackGradients[index % fallbackGradients.length];
-  const showPhoto   = !imgError && !!person.photo;
+  const gradient = fallbackGradients[index % fallbackGradients.length];
+  const showPhoto = !imgError && !!person.photo;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6, scale: 1.02 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.35, delay: (index % 3) * 0.08 }}
-      className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col cursor-default"
+      transition={{ duration: 0.4, delay: (index % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      className={`group flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-18px_rgba(31,45,47,0.18)] ${aboutSurfaceCard}`}
     >
-      {/* Photo / gradient-initials fallback */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden">
+      <div className="relative aspect-[4/5] w-full overflow-hidden">
         {showPhoto ? (
           <>
             <img
               src={person.photo}
               alt={person.name}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
-            {/* subtle bottom fade so name reads cleanly */}
-            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/30 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-dark-text/50 to-transparent" />
           </>
         ) : (
           <div
-            className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${gradient}`}
+            className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${gradient}`}
           >
-            <span className="text-4xl sm:text-5xl font-extrabold text-white/80 tracking-tight select-none">
+            <span className="font-section text-4xl font-semibold tracking-tight text-white/85 select-none sm:text-5xl">
               {getInitials(person.name)}
             </span>
           </div>
         )}
       </div>
 
-      {/* Name + role */}
-      <div className="px-4 py-4 sm:px-5 sm:py-4 flex flex-col items-center text-center gap-2">
-        <h3 className="font-semibold text-dark-text text-sm sm:text-base leading-snug">
-          {person.name}
-        </h3>
-        <span className={`relative px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium ${roleColor}`}>
+      <div className="flex flex-col items-center gap-2.5 px-4 py-5 text-center sm:px-5 sm:py-5">
+        <h3 className={`${aboutH3} text-base sm:text-[1.05rem]`}>{person.name}</h3>
+        <span
+          className={`rounded-full px-3.5 py-1.5 text-[0.78rem] font-medium leading-snug ring-1 sm:text-sm ${roleColor}`}
+        >
           {person.role}
-          <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${dotColor}`} />
         </span>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
 export default function Leadership() {
   return (
-    <section className="py-16 sm:py-20 bg-white">
-      <div className="max-w-[1400px] xl:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-20">
-        {/* Heading */}
-        <div className="text-center mb-10 sm:mb-14">
-          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary bg-green-50 rounded-full mb-3">
-            Our Team
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-dark-text mb-3">
-            Meet the Team
-          </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base">
+    <section className={`bg-white ${aboutSectionPad}`}>
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:max-w-[1600px] xl:px-20">
+        <div className="mb-12 text-center sm:mb-16">
+          <span className={`${aboutEyebrow} mb-3`}>Our Team</span>
+          <h2 className={`${aboutH2Centered} mb-3`}>Meet the Team</h2>
+          <p className={aboutSectionLead}>
             SCHC is made up of dedicated executives and volunteers who actively
             contribute to our mission of improving child health.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
           {leaders.map((person, i) => (
             <LeaderCard key={person.name} person={person} index={i} />
           ))}
