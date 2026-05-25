@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { sectionEyebrow } from "@/lib/sectionEyebrow";
 
 export default function AboutPreview() {
   return (
@@ -56,9 +57,7 @@ export default function AboutPreview() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            <span className="inline-block px-3.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary bg-green-50 rounded-full mb-4">
-              About SCHC
-            </span>
+            <span className={sectionEyebrow}>About SCHC</span>
             <h2 className="text-[1.85rem] sm:text-[2.1rem] lg:text-[2.35rem] font-semibold tracking-tight text-dark-text leading-[1.12] mb-4">
               Dedicated to Every Child&apos;s Health and Well-being
             </h2>
