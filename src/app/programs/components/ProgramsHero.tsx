@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
 
 export default function ProgramsHero() {
   return (
@@ -21,9 +22,7 @@ export default function ProgramsHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white/70 border border-white/30 rounded-full mb-4">
-            Programs &amp; Initiatives
-          </span>
+          <span className={sectionEyebrowHero}>Programs &amp; Initiatives</span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
             Initiatives That Change Lives
           </h1>
