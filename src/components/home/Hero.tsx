@@ -110,7 +110,7 @@ function HeroImageCell({
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#1FA84A] via-[#27C2C7] to-[#34C759] min-h-[88vh] lg:min-h-[72vh] xl:min-h-[75vh] flex items-center">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#1FA84A] via-[#27C2C7] to-[#34C759] min-h-[88vh] flex items-center lg:-mt-12 lg:min-h-[84vh] lg:pt-12 lg:items-start xl:min-h-[88vh] min-[1440px]:min-h-[90vh]">
       <Particles count={50} />
 
       {/* Floating decorative shapes */}
@@ -132,8 +132,8 @@ export default function Hero() {
 
       <div className="hidden sm:block absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 py-20 sm:py-24 lg:px-8 lg:py-10 xl:px-16 xl:py-12 min-[1440px]:max-w-[90rem] min-[1440px]:px-20 min-[1440px]:py-20">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-6 xl:gap-8 min-[1440px]:gap-x-16 min-[1440px]:gap-y-12">
+      <div className="relative mx-auto w-full max-w-7xl px-6 py-20 sm:py-24 lg:px-8 lg:pb-12 lg:pt-20 xl:px-16 xl:pb-14 xl:pt-24 min-[1440px]:max-w-[90rem] min-[1440px]:px-20 min-[1440px]:py-28">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-6 xl:gap-8 min-[1440px]:gap-x-6 min-[1440px]:gap-y-10">
           {/* Left — copy */}
           <motion.div
             variants={containerVariants}
@@ -143,14 +143,14 @@ export default function Hero() {
           >
             <motion.p
               variants={itemVariants}
-              className="mb-3 max-w-md text-xs font-medium tracking-wide text-white/70 sm:text-[0.8rem] lg:mb-3 lg:text-[0.75rem] xl:text-[0.85rem] min-[1440px]:mb-5 min-[1440px]:text-[0.9rem] min-[1440px]:tracking-[0.02em]"
+              className="mb-3 max-w-md text-xs font-medium tracking-wide text-white/70 sm:text-[0.8rem] lg:mb-3 lg:text-[0.75rem] xl:text-[0.85rem] min-[1440px]:mb-4 min-[1440px]:text-[0.8rem] min-[1440px]:tracking-[0.02em]"
             >
               Sylfi&apos;s Child Health Corner
             </motion.p>
 
             <motion.h1
               variants={itemVariants}
-              className="mb-4 max-w-xl text-balance text-[1.75rem] font-bold leading-[1.12] tracking-tight text-white sm:text-[2rem] lg:mb-4 lg:text-[1.75rem] lg:leading-[1.12] xl:text-[2rem] min-[1440px]:mb-6 min-[1440px]:max-w-2xl min-[1440px]:text-[3.15rem] min-[1440px]:leading-[1.08] min-[1440px]:tracking-[-0.03em] 2xl:mb-7 2xl:text-[3.35rem]"
+              className="mb-4 max-w-xl text-balance text-[1.75rem] font-bold leading-[1.12] tracking-tight text-white sm:text-[2rem] lg:mb-4 lg:text-[1.75rem] lg:leading-[1.12] xl:text-[2rem] min-[1440px]:mb-5 min-[1440px]:max-w-xl min-[1440px]:text-[2.35rem] min-[1440px]:leading-[1.1] min-[1440px]:tracking-[-0.02em] 2xl:mb-6 2xl:text-[2.5rem]"
             >
               Every Child Deserves a{" "}
               <span className="underline decoration-white/50 decoration-4 underline-offset-4">
@@ -161,7 +161,7 @@ export default function Hero() {
 
             <motion.p
               variants={itemVariants}
-              className="mb-6 max-w-[36ch] text-sm font-normal leading-relaxed text-white/85 lg:mb-5 lg:text-[0.9rem] lg:leading-[1.65] xl:mb-6 xl:max-w-[38ch] xl:text-base min-[1440px]:mb-10 min-[1440px]:max-w-[42ch] min-[1440px]:text-[1.05rem] min-[1440px]:leading-[1.8]"
+              className="mb-6 max-w-[36ch] text-sm font-normal leading-relaxed text-white/85 lg:mb-5 lg:text-[0.9rem] lg:leading-[1.65] xl:mb-6 xl:max-w-[38ch] xl:text-base min-[1440px]:mb-8 min-[1440px]:max-w-[40ch] min-[1440px]:text-[0.9375rem] min-[1440px]:leading-[1.7]"
             >
               We empower families and caregivers to prioritize children&apos;s
               health through education, advocacy, and community engagement.
@@ -176,7 +176,7 @@ export default function Hero() {
                   href="/volunteer"
                   variant="white"
                   size="sm"
-                  className="!rounded-xl !px-6 !py-3 !text-sm !font-semibold lg:!px-7 lg:!text-[0.9rem] xl:!px-8 xl:!py-3.5 xl:!text-base min-[1440px]:!px-9 min-[1440px]:!py-4 min-[1440px]:!text-[1.05rem] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  className="!rounded-xl !px-6 !py-3 !text-sm !font-semibold lg:!px-7 lg:!text-[0.9rem] xl:!px-8 xl:!py-3.5 xl:!text-base min-[1440px]:!px-8 min-[1440px]:!py-3.5 min-[1440px]:!text-[0.9375rem] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Volunteer With Us
                 </Button>
@@ -185,11 +185,11 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Watch our impact story video on YouTube (opens in new tab)"
-                  className="group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white text-primary shadow-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:h-12 xl:w-12 min-[1440px]:h-[3.25rem] min-[1440px]:w-[3.25rem]"
+                  className="group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white text-primary shadow-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:h-12 xl:w-12 min-[1440px]:h-11 min-[1440px]:w-11"
                 >
                   <Play
                     size={16}
-                    className="ml-0.5 fill-primary stroke-primary xl:size-[18px] min-[1440px]:size-5"
+                    className="ml-0.5 fill-primary stroke-primary xl:size-[18px] min-[1440px]:size-4"
                     aria-hidden
                   />
                 </Link>
@@ -198,7 +198,7 @@ export default function Hero() {
                 href="/about"
                 variant="outline"
                 size="sm"
-                className="!rounded-xl border-white/35 !px-6 !py-2.5 !text-sm !font-medium !text-white hover:!bg-white/10 hover:!text-white lg:!px-7 xl:!px-7 xl:!py-3 xl:!text-[0.95rem] min-[1440px]:!px-8 min-[1440px]:!py-3.5 min-[1440px]:!text-base focus-visible:ring-white"
+                className="!rounded-xl border-white/35 !px-6 !py-2.5 !text-sm !font-medium !text-white hover:!bg-white/10 hover:!text-white lg:!px-7 xl:!px-7 xl:!py-3 xl:!text-[0.95rem] min-[1440px]:!px-7 min-[1440px]:!py-3 min-[1440px]:!text-[0.9rem] focus-visible:ring-white"
               >
                 Learn More
               </Button>
@@ -213,7 +213,7 @@ export default function Hero() {
                 {supporterAvatars.map((avatar, i) => (
                   <div
                     key={avatar.src}
-                    className="relative -ml-2 first:ml-0 h-9 w-9 overflow-hidden rounded-full border-2 border-primary-dark ring-1 ring-white/20 lg:h-10 lg:w-10 min-[1440px]:-ml-2.5 min-[1440px]:h-12 min-[1440px]:w-12"
+                    className="relative -ml-2 first:ml-0 h-9 w-9 overflow-hidden rounded-full border-2 border-primary-dark ring-1 ring-white/20 lg:h-10 lg:w-10 min-[1440px]:-ml-2 min-[1440px]:h-10 min-[1440px]:w-10"
                     style={{ zIndex: supporterAvatars.length - i }}
                   >
                     <Image
@@ -225,11 +225,11 @@ export default function Hero() {
                     />
                   </div>
                 ))}
-                <div className="relative z-10 -ml-2 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary-dark bg-white text-xs font-bold tabular-nums text-primary lg:h-10 lg:w-10 lg:text-sm min-[1440px]:-ml-2.5 min-[1440px]:h-12 min-[1440px]:w-12 min-[1440px]:text-[0.95rem]">
+                <div className="relative z-10 -ml-2 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary-dark bg-white text-xs font-bold tabular-nums text-primary lg:h-10 lg:w-10 lg:text-sm min-[1440px]:-ml-2 min-[1440px]:h-10 min-[1440px]:w-10 min-[1440px]:text-xs">
                   400+
                 </div>
               </div>
-              <p className="text-center text-xs leading-snug text-white/85 sm:text-sm lg:text-left min-[1440px]:text-base min-[1440px]:leading-relaxed">
+              <p className="text-center text-xs leading-snug text-white/85 sm:text-sm lg:text-left min-[1440px]:text-sm min-[1440px]:leading-snug">
                 <span className="font-medium text-white">Join our community</span>{" "}
                 <Link
                   href="/volunteer"
@@ -243,7 +243,7 @@ export default function Hero() {
 
           {/* Right — staggered two-column image grid */}
           <div className="w-full min-w-0 lg:max-w-none">
-            <div className="flex h-[min(22rem,52vw)] gap-2.5 sm:h-[min(24rem,48vw)] sm:gap-3 lg:h-[18rem] lg:gap-2.5 xl:h-[22rem] xl:gap-3 min-[1440px]:h-[28rem] min-[1440px]:gap-5 2xl:h-[30rem] 2xl:gap-6">
+            <div className="flex h-[min(22rem,52vw)] gap-2.5 sm:h-[min(24rem,48vw)] sm:gap-3 lg:h-[18rem] lg:gap-2.5 xl:h-[22rem] xl:gap-3 min-[1440px]:h-[32rem] min-[1440px]:gap-5 2xl:h-[34rem] 2xl:gap-6">
               {heroImageColumns.map((column, colIndex) => (
                 <div
                   key={colIndex}
