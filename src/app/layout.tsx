@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import AppLoader from "@/components/layout/AppLoader";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.className} data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col bg-light-bg text-dark-text antialiased">
+        <AppLoader />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
