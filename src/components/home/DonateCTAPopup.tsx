@@ -236,14 +236,14 @@ export default function DonateCTAPopup() {
 
                 <h2
                   id="donate-cta-title"
-                  className="text-balance text-[1.45rem] font-bold leading-[1.15] tracking-tight text-dark-text sm:text-[1.65rem]"
+                  className="text-balance text-[1.35rem] font-bold leading-[1.15] tracking-tight text-dark-text sm:text-[1.5rem]"
                 >
                   Help Us Save a Child&apos;s Life
                 </h2>
 
                 <p
                   id="donate-cta-desc"
-                  className="max-w-[36ch] text-[0.95rem] leading-relaxed text-dark-text/70 sm:text-base sm:leading-[1.65]"
+                  className="max-w-[36ch] text-sm leading-relaxed text-dark-text/70 sm:text-[0.9375rem] sm:leading-[1.65]"
                 >
                   Every gift funds healthcare, nutrition, and support for
                   children who need it most. Give today and help a child grow

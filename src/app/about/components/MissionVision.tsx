@@ -196,7 +196,7 @@ export default function MissionVision() {
                     <motion.li
                       key={item}
                       variants={visionItemVariants}
-                      className="group relative overflow-hidden rounded-xl border border-teal/10 bg-white/85 px-4 py-3 text-[0.95rem] leading-snug text-pretty text-gray-600 shadow-[0_6px_16px_-12px_rgba(39,194,199,0.35)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-[1px] sm:text-base"
+                      className="group relative overflow-hidden rounded-xl border border-teal/10 bg-white/85 px-4 py-3 text-sm leading-snug text-pretty text-gray-600 shadow-[0_6px_16px_-12px_rgba(39,194,199,0.35)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-[1px] sm:text-[0.9375rem]"
                     >
                       <span className="absolute left-0 top-0 h-full w-1 bg-teal/30" />
                       <span className="relative block leading-snug">
@@ -248,7 +248,7 @@ export default function MissionVision() {
                   <div className="relative w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-primary/10 transition-transform duration-500 group-hover:scale-105">
                     <obj.icon className="w-7 h-7 text-primary" strokeWidth={2} />
                   </div>
-                  <h4 className="text-[1.05rem] font-semibold leading-tight tracking-tight text-dark-text mb-2 sm:text-[1.1rem]">
+                  <h4 className="text-base font-semibold leading-tight tracking-tight text-dark-text mb-2 sm:text-[1.05rem]">
                     {obj.title}
                   </h4>
                   <span className="block h-[3px] w-8 bg-primary rounded-full mx-auto mb-4" />

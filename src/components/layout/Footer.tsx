@@ -46,6 +46,9 @@ const programLinks = [
 
 const johnsonGithubUrl = "https://github.com/jaameyaw";
 
+const footerSectionHeading =
+  "relative font-semibold text-xs uppercase tracking-[0.3em] text-white mb-7 pb-3 after:absolute after:left-0 after:bottom-0 after:block after:h-[2px] after:w-12 after:rounded-full after:bg-gradient-to-r after:from-primary after:to-teal/80 after:content-['']";
+
 export default function Footer() {
   return (
     <footer
@@ -55,20 +58,6 @@ export default function Footer() {
       {/* Ambient glow */}
       <div className="absolute -left-32 top-0 w-[420px] h-[420px] rounded-full bg-primary/8 blur-[120px] pointer-events-none -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-[280px] h-[280px] rounded-full bg-teal/8 blur-[90px] pointer-events-none translate-y-1/3" />
-
-      {/* Decorative concentric rings — anchored to the left */}
-      <div
-        className="absolute -left-48 top-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full pointer-events-none"
-        style={{ border: "72px solid rgba(52,199,89,0.045)" }}
-      />
-      <div
-        className="absolute -left-28 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full pointer-events-none"
-        style={{ border: "1.5px solid rgba(39,194,199,0.18)" }}
-      />
-      <div
-        className="absolute -left-10 top-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full pointer-events-none"
-        style={{ border: "1px solid rgba(39,194,199,0.09)" }}
-      />
 
       <Particles count={14} />
 
@@ -86,19 +75,19 @@ export default function Footer() {
                 className="rounded-full object-cover w-14 h-14"
               />
               <div className="leading-tight">
-                <p className="font-bold text-lg tracking-tight">Sylfi&apos;s Child Health Corner</p>
+                <p className="font-bold text-base tracking-tight">Sylfi&apos;s Child Health Corner</p>
                 <p className="text-primary text-xs font-semibold tracking-[0.28em] uppercase mt-1">
                   SCHC · Ghana
                 </p>
               </div>
             </Link>
 
-            <p className="text-gray-300 text-base leading-relaxed mb-5 max-w-sm lg:max-w-none">
+            <p className="text-gray-300 text-sm leading-relaxed mb-5 max-w-sm sm:text-[0.9375rem] lg:max-w-none">
               Empowering families and caregivers to prioritize children&apos;s health
               through education, advocacy, and community engagement.
             </p>
 
-            <p className="text-primary font-semibold text-base mb-6 leading-relaxed">
+            <p className="text-primary font-semibold text-sm mb-6 leading-relaxed sm:text-[0.9375rem]">
               Healthy Habits. Happy Kids. Brighter Tomorrow.
             </p>
 
@@ -119,7 +108,7 @@ export default function Footer() {
 
             <Link
               href="/donate"
-              className="inline-block px-6 py-3 bg-primary text-white text-base font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200"
+              className="inline-flex items-center px-4 py-2 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200"
             >
               Support Us
             </Link>
@@ -127,9 +116,7 @@ export default function Footer() {
 
           {/* Quick Links — row 1 right on lg */}
           <div className="min-w-0 lg:pl-4 xl:pl-6">
-            <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
-              Quick Links
-            </h3>
+            <h3 className={footerSectionHeading}>Quick Links</h3>
             <ul className="space-y-3.5">
               {quickLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -146,9 +133,7 @@ export default function Footer() {
 
           {/* Programs */}
           <div className="min-w-0">
-            <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
-              Programs
-            </h3>
+            <h3 className={footerSectionHeading}>Programs</h3>
             <ul className="space-y-3.5">
               {programLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -165,10 +150,8 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="min-w-0">
-            <h3 className="font-semibold text-sm uppercase tracking-[0.3em] text-gray-300 mb-6">
-              Contact Us
-            </h3>
-            <ul className="space-y-4 text-gray-300 text-base">
+            <h3 className={footerSectionHeading}>Contact Us</h3>
+            <ul className="space-y-4 text-gray-300 text-sm sm:text-[0.9375rem]">
               <li className="flex items-start gap-2.5">
                 <MapPinIcon className="w-5 h-5 mt-0.5 shrink-0 text-primary" />
                 <span>Kumasi, Ghana</span>

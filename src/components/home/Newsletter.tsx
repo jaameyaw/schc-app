@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ClientOnly from "@/components/ui/ClientOnly";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
+import { sectionH2, bodyMuted } from "@/lib/typography";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -23,17 +25,17 @@ export default function Newsletter() {
           transition={{ duration: 0.5 }}
         >
           <span className={sectionEyebrow}>Stay Connected</span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-dark-text mb-3">
+          <h2 className={`${sectionH2} font-bold text-dark-text mb-3`}>
             Stay Updated with Our Work
           </h2>
-          <p className="text-gray-500 text-base mb-8">
+          <p className={`${bodyMuted} text-gray-500 mb-8`}>
             Get updates on our programs, outreach, and ways to support
             children&apos;s health.
           </p>
 
           {submitted ? (
             <div className="bg-green-50 border border-primary/20 rounded-xl px-8 py-6">
-              <p className="text-primary font-semibold text-lg">
+              <p className="text-primary font-semibold text-base sm:text-[0.9375rem]">
                 Thank you for subscribing!
               </p>
               <p className="text-gray-500 text-sm mt-1">
@@ -41,22 +43,37 @@ export default function Newsletter() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0"
+            <ClientOnly
+              fallback={
+                <div
+                  className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+                  aria-hidden="true"
+                >
+                  <div className="flex-1 h-[46px] rounded-full border border-gray-200 bg-gray-50" />
+                  <div className="h-[46px] w-28 shrink-0 rounded-full bg-primary/80" />
+                </div>
+              }
+            >
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >
-                Subscribe
-              </button>
-            </form>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </ClientOnly>
           )}
         </motion.div>
       </div>

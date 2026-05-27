@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import DonationCauseGrid from "./components/DonationCauseGrid";
 import DonationMethodsSection from "./components/DonationMethodsSection";
 import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
+import { pageH1, pageHeroLead } from "@/lib/typography";
 
 export default function DonatePage() {
   return (
@@ -31,10 +32,10 @@ export default function DonatePage() {
             transition={{ duration: 0.6 }}
           >
             <span className={sectionEyebrowHero}>Support Our Mission</span>
-            <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
+            <h1 className={`${pageH1} text-white`}>
               Your Donation Changes Lives
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-[1.12rem]">
+            <p className={`${pageHeroLead} mx-auto mt-5 max-w-2xl text-white/85`}>
               Every contribution — no matter the size — goes directly toward
               improving child health, education, and welfare across Ghana.
             </p>
@@ -64,7 +65,7 @@ export default function DonatePage() {
           <DonationCauseGrid />
 
           <div className="mt-12 flex flex-col items-center gap-4 text-center sm:mt-14">
-            <p className="text-base font-bold text-dark-text/70">
+            <p className="text-sm font-bold text-dark-text/70 sm:text-[0.9375rem]">
               Ready to send a gift?
             </p>
             <Button

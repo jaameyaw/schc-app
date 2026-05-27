@@ -203,10 +203,10 @@ function MethodCard({
             {icon}
           </div>
           <div className="min-w-0 pt-0.5">
-            <h3 className="font-section text-[1.05rem] font-semibold leading-tight tracking-tight text-dark-text text-balance sm:text-[1.12rem]">
+            <h3 className="font-section text-base font-semibold leading-tight tracking-tight text-dark-text text-balance sm:text-[1.05rem]">
               {title}
             </h3>
-            <p className="mt-1.5 text-[0.88rem] leading-[1.65] text-gray-600 text-pretty">
+            <p className="mt-1.5 text-sm leading-[1.65] text-gray-600 text-pretty sm:text-[0.9375rem]">
               {description}
             </p>
           </div>
@@ -253,7 +253,7 @@ export default function DonationMethodsSection() {
           <MethodCard
             accentBg="bg-[#FFCC00]"
             icon={
-              <span className="text-lg font-black tracking-tight text-[#1a1a1a]">
+              <span className="text-base font-black tracking-tight text-[#1a1a1a]">
                 M
               </span>
             }

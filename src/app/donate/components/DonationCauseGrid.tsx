@@ -110,11 +110,11 @@ export default function DonationCauseGrid() {
 
             <div className="flex flex-1 flex-col px-6 py-6 text-center sm:px-7 sm:py-7">
               <h3
-                className={`font-section text-[1.12rem] font-semibold leading-snug tracking-tight sm:text-[1.18rem] ${styles.title}`}
+                className={`font-section text-base font-semibold leading-snug tracking-tight sm:text-[1.05rem] ${styles.title}`}
               >
                 {cause.title}
               </h3>
-              <p className="mt-2.5 text-[0.9rem] leading-[1.65] text-gray-600 sm:text-[0.94rem]">
+              <p className="mt-2.5 text-sm leading-[1.65] text-gray-600 sm:text-[0.9375rem]">
                 {cause.desc}
               </p>
             </div>

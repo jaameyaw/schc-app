@@ -116,7 +116,7 @@ export default function ProgramCard({
           Program {String(index + 1).padStart(2, "0")}
         </p>
 
-        <h2 className="font-section text-[1.75rem] font-semibold leading-[1.08] tracking-tight text-balance text-dark-text sm:text-3xl lg:text-[2.15rem]">
+        <h2 className="font-section text-[1.5rem] font-semibold leading-[1.08] tracking-tight text-balance text-dark-text sm:text-[1.65rem] lg:text-[1.75rem] xl:text-[1.85rem]">
           {title}
         </h2>
 
@@ -126,7 +126,7 @@ export default function ProgramCard({
           }`}
         >
           <p
-            className={`inline-flex items-start gap-2 text-[0.95rem] font-medium leading-snug sm:text-base ${accentText} text-pretty`}
+            className={`inline-flex items-start gap-2 text-sm font-medium leading-snug sm:text-[0.9375rem] ${accentText} text-pretty`}
           >
             {SloganIcon ? (
               <SloganIcon className="mt-1 h-4 w-4 shrink-0" strokeWidth={2} />
@@ -135,7 +135,7 @@ export default function ProgramCard({
           </p>
         </blockquote>
 
-        <p className="mb-2 max-w-[65ch] text-[0.95rem] leading-[1.8] text-gray-600 text-pretty sm:text-base">
+        <p className="mb-2 max-w-[65ch] text-sm leading-[1.8] text-gray-600 text-pretty sm:text-[0.9375rem]">
           {description}
         </p>
 

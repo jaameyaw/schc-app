@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import Particles from "@/components/ui/Particles";
 import { sectionEyebrowHeroStyles } from "@/lib/sectionEyebrow";
+import { pageHeroLead, sectionH2 } from "@/lib/typography";
 
 export default function CTABanner() {
   return (
@@ -20,11 +21,11 @@ export default function CTABanner() {
           <span className={`${sectionEyebrowHeroStyles} mb-3`}>
             Join the Movement
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+          <h2 className={`${sectionH2} font-bold text-white mb-5`}>
             Be the Reason a Child
             <br className="hidden sm:block" /> Smiles Today
           </h2>
-          <p className="text-white/85 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className={`${pageHeroLead} text-white/85 max-w-2xl mx-auto mb-8`}>
             Together, we can prioritize child health and create a brighter future
             for every child. Your support makes it possible.
           </p>

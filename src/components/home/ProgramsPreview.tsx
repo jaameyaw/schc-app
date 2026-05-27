@@ -97,10 +97,10 @@ export default function ProgramsPreview() {
 
               {/* Body */}
               <div className="px-6 pt-5 pb-7 flex flex-col flex-1">
-                <h3 className="text-[1.15rem] lg:text-[1.2rem] font-semibold tracking-tight text-dark-text leading-snug mb-3">
+                <h3 className="text-base font-semibold tracking-tight text-dark-text leading-snug mb-3 sm:text-[1.05rem]">
                   {prog.title}
                 </h3>
-                <p className="text-slate-600 text-[0.96rem] leading-relaxed flex-1 mb-5">
+                <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5 sm:text-[0.9375rem]">
                   {prog.description}
                 </p>
                 <Link

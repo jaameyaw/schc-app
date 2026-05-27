@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
+import { sectionH2, sectionLead } from "@/lib/typography";
 
 interface SectionHeaderProps {
   tag?: string;
@@ -33,7 +34,7 @@ export default function SectionHeader({
       )}
       <h2
         id={headingId}
-        className={`text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.1] mb-4 ${
+        className={`${sectionH2} mb-4 ${
           light ? "text-white" : "text-dark-text"
         }`}
       >
@@ -41,7 +42,7 @@ export default function SectionHeader({
       </h2>
       {subtitle && (
         <p
-          className={`text-[0.98rem] sm:text-lg leading-relaxed max-w-[60ch] ${
+          className={`${sectionLead} max-w-[60ch] ${
             centered ? "mx-auto" : ""
           } ${light ? "text-white/80" : "text-gray-600"}`}
         >

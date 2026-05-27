@@ -1,46 +1,38 @@
 /** About page type + surface tokens */
 
-const sectionFont = "font-section";
+import { sectionH2, sectionLead } from "@/lib/typography";
 
 export {
   sectionEyebrow as aboutEyebrow,
   sectionEyebrowHero as aboutEyebrowHero,
 } from "@/lib/sectionEyebrow";
 
-export const aboutH1 = `${sectionFont} text-4xl font-semibold leading-[1.08] tracking-tight text-balance text-white sm:text-5xl lg:text-[3.25rem]`;
+export {
+  pageH1 as aboutH1,
+  pageHeroLead as aboutHeroLead,
+  sectionH2 as aboutH2,
+  bodyText as aboutBody,
+  sectionH3 as aboutH3,
+  sectionH3Block as aboutH3Section,
+  pullQuote as aboutQuote,
+} from "@/lib/typography";
 
-export const aboutHeroLead =
-  "mx-auto mt-5 max-w-[65ch] text-lg leading-relaxed text-pretty text-white/85 sm:text-[1.12rem]";
+export const aboutH2Centered = `${sectionH2} mx-auto max-w-[28ch]`;
 
-export const aboutH2 = `${sectionFont} text-[1.85rem] font-semibold leading-[1.08] tracking-tight text-balance text-dark-text sm:text-4xl lg:text-[2.35rem]`;
+export const aboutSectionLead = `${sectionLead} mx-auto mt-4 max-w-[65ch] text-gray-600`;
 
-export const aboutH2Centered = `${aboutH2} mx-auto max-w-[28ch]`;
+export const aboutSectionLeadLeft = "mt-4 max-w-[65ch] text-sm leading-relaxed text-pretty text-gray-600 sm:text-[0.9375rem]";
 
-export const aboutSectionLead =
-  "mx-auto mt-4 max-w-[65ch] text-base leading-relaxed text-pretty text-gray-600 sm:text-[1.02rem]";
-
-export const aboutSectionLeadLeft =
-  "mt-4 max-w-[65ch] text-base leading-relaxed text-pretty text-gray-600 sm:text-[1.02rem]";
-
-export const aboutH3 = `${sectionFont} text-[1.15rem] font-semibold leading-tight tracking-tight text-dark-text sm:text-xl`;
-
-export const aboutH3Section = `${sectionFont} text-2xl font-semibold leading-[1.1] tracking-tight text-balance text-dark-text sm:text-[1.65rem]`;
-
-export const aboutBody =
-  "text-base leading-[1.65] text-pretty text-gray-600 sm:text-[1.02rem]";
-
-export const aboutBodyStack = `space-y-4 ${aboutBody} max-w-[65ch]`;
+export const aboutBodyStack = "space-y-4 text-sm leading-[1.65] text-pretty text-gray-600 sm:text-[0.9375rem] max-w-[65ch]";
 
 export const aboutCardBody =
-  "text-[0.95rem] leading-relaxed text-pretty text-gray-600 sm:text-base";
-
-export const aboutQuote = `${sectionFont} text-xl font-medium leading-[1.45] tracking-tight text-pretty text-dark-text sm:text-2xl sm:leading-[1.4]`;
+  "text-sm leading-relaxed text-pretty text-gray-600 sm:text-[0.9375rem]";
 
 export const aboutQuoteMark =
-  "font-section text-5xl leading-none text-primary/25 select-none sm:text-6xl";
+  "font-section text-3xl leading-none text-primary/25 select-none sm:text-4xl";
 
 export const aboutFeatureLabel =
-  "text-sm font-medium leading-snug text-dark-text sm:text-[0.95rem]";
+  "text-sm font-medium leading-snug text-dark-text sm:text-[0.9375rem]";
 
 /** Diffusion shadow + hairline border (Bento-style surfaces) */
 export const aboutSurfaceCard =

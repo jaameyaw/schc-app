@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
+import { pageH1, pageHeroLead } from "@/lib/typography";
 
 export default function ProgramsHero() {
   return (
@@ -23,10 +24,10 @@ export default function ProgramsHero() {
           transition={{ duration: 0.6 }}
         >
           <span className={sectionEyebrowHero}>Programs &amp; Initiatives</span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
+          <h1 className={`${pageH1} text-white mb-5`}>
             Initiatives That Change Lives
           </h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className={`${pageHeroLead} text-white/80 max-w-2xl mx-auto`}>
             From school uniforms to street feeding programs — every initiative
             is designed to protect, empower, and uplift children and their
             families.

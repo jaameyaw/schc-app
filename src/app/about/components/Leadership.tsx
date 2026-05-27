@@ -118,7 +118,7 @@ function LeaderCard({
           <div
             className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${gradient}`}
           >
-            <span className="font-section text-4xl font-semibold tracking-tight text-white/85 select-none sm:text-5xl">
+            <span className="font-section text-3xl font-semibold tracking-tight text-white/85 select-none sm:text-4xl">
               {getInitials(person.name)}
             </span>
           </div>
@@ -126,7 +126,7 @@ function LeaderCard({
       </div>
 
       <div className="flex flex-col items-center gap-2.5 px-4 py-5 text-center sm:px-5 sm:py-5">
-        <h3 className={`${aboutH3} text-base sm:text-[1.05rem]`}>{person.name}</h3>
+        <h3 className={aboutH3}>{person.name}</h3>
         <span
           className={`rounded-full px-3.5 py-1.5 text-[0.78rem] font-medium leading-snug ring-1 sm:text-sm ${roleColor}`}
         >

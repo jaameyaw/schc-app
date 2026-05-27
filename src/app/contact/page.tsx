@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
+import { pageH1, pageHeroLead, sectionH2, sectionH3, bodyMuted } from "@/lib/typography";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -35,8 +36,8 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
           >
             <span className={sectionEyebrowHero}>Reach Out</span>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-5">Contact Us</h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <h1 className={`${pageH1} text-white mb-5`}>Contact Us</h1>
+            <p className={`${pageHeroLead} text-white/80 max-w-2xl mx-auto`}>
               Have questions, ideas, or want to get involved? We&apos;d love to
               hear from you.
             </p>
@@ -55,10 +56,10 @@ export default function ContactPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-2xl sm:text-3xl font-bold text-dark-text mb-6">
+              <h2 className={`${sectionH2} font-bold text-dark-text mb-6`}>
                 Get in Touch
               </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
+              <p className={`${bodyMuted} mb-8`}>
                 We&apos;re here to answer questions about our programs,
                 volunteering, partnerships, and donations.
               </p>
@@ -132,13 +133,13 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <div className="bg-white rounded-2xl p-8 shadow-sm">
-                <h2 className="text-xl font-bold text-dark-text mb-6">Send a Message</h2>
+                <h2 className={`${sectionH3} font-bold text-dark-text mb-6`}>Send a Message</h2>
                 {submitted ? (
                   <div className="text-center py-10">
                     <div className="flex justify-center mb-4">
                       <CheckCircle className="w-16 h-16 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-dark-text mb-2">Message Sent!</h3>
+                    <h3 className={`${sectionH3} font-bold text-dark-text mb-2`}>Message Sent!</h3>
                     <p className="text-gray-500">Thank you for reaching out. We&apos;ll get back to you shortly.</p>
                   </div>
                 ) : (

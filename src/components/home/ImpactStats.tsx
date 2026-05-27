@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, animate } from "framer-motion";
 import { Baby, HeartHandshake, Megaphone, Building2 } from "lucide-react";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
+import { sectionH2, statNumber } from "@/lib/typography";
 
 const stats = [
   {
@@ -90,7 +91,7 @@ export default function ImpactStats() {
           className="text-center mb-10 sm:mb-14"
         >
           <span className={sectionEyebrow}>Our Impact</span>
-          <h2 className="text-[1.6rem] sm:text-[2rem] font-semibold tracking-tight leading-[1.1] text-dark-text">
+          <h2 className={`${sectionH2} text-dark-text`}>
             Making a Difference
           </h2>
         </motion.div>
@@ -114,7 +115,7 @@ export default function ImpactStats() {
               </div>
 
               {/* Number */}
-              <p className="text-[1.9rem] sm:text-[2.25rem] font-semibold tracking-tight leading-none text-dark-text tabular-nums">
+              <p className={`${statNumber} text-dark-text`}>
                 <CountUp
                   target={stat.target}
                   suffix={stat.suffix}

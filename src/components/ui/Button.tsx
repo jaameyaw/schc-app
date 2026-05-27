@@ -23,7 +23,7 @@ const variants: Record<string, string> = {
 
 const sizes: Record<string, string> = {
   sm: "px-5 py-2.5 text-sm",
-  lg: "px-7 py-3.5 text-base",
+  lg: "px-7 py-3.5 text-sm sm:text-[0.9375rem]",
 };
 
 export default function Button({
