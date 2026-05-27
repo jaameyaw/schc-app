@@ -1,47 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 import DonationCauseGrid from "./components/DonationCauseGrid";
 import DonationMethodsSection from "./components/DonationMethodsSection";
-import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
-import { pageH1, pageHeroLead } from "@/lib/typography";
 
 export default function DonatePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-teal py-24 lg:py-28">
-        <div className="absolute inset-0 opacity-[0.12]">
-          <Image
-            src="/images/IMG_8438.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/30 via-transparent to-primary-dark/40" />
-        <div className="relative w-full px-6 text-center lg:px-12 xl:px-20">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className={sectionEyebrowHero}>Support Our Mission</span>
-            <h1 className={`${pageH1} text-white`}>
-              Your Donation Changes Lives
-            </h1>
-            <p className={`${pageHeroLead} mx-auto mt-5 max-w-2xl text-white/85`}>
-              Every contribution — no matter the size — goes directly toward
-              improving child health, education, and welfare across Ghana.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        tag="Support Our Mission"
+        title="Your Donation Changes Lives"
+        subtitle="Every contribution — no matter the size — goes directly toward improving child health, education, and welfare across Ghana."
+        imageSrc="/images/IMG_8438.jpg"
+        imagePriority
+      />
 
       {/* Why Donate + How to Give */}
       <section className="relative overflow-hidden bg-light-bg py-20 lg:py-28">

@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { CheckCircle } from "lucide-react";
-import { sectionEyebrowHero } from "@/lib/sectionEyebrow";
-import { pageH1, pageHeroLead, sectionH2, sectionH3, bodyMuted } from "@/lib/typography";
+import PageHero from "@/components/ui/PageHero";
+import { sectionH2, sectionH3, bodyMuted } from "@/lib/typography";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -18,32 +17,12 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative bg-gradient-to-br from-teal to-primary-dark py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <Image
-            src="/images/IMG_8561.jpg"
-            alt="SCHC background"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <div className="relative w-full px-6 lg:px-12 xl:px-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className={sectionEyebrowHero}>Reach Out</span>
-            <h1 className={`${pageH1} text-white mb-5`}>Contact Us</h1>
-            <p className={`${pageHeroLead} text-white/80 max-w-2xl mx-auto`}>
-              Have questions, ideas, or want to get involved? We&apos;d love to
-              hear from you.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        tag="Reach Out"
+        title="Contact Us"
+        subtitle="Have questions, ideas, or want to get involved? We'd love to hear from you."
+        imageSrc="/images/IMG_8561.jpg"
+      />
 
       {/* Contact Info + Form */}
       <section className="py-20 bg-light-bg overflow-hidden">

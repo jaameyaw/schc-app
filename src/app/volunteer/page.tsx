@@ -1,51 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { GeistSans } from "geist/font/sans";
-import Image from "next/image";
 import CTABanner from "@/components/home/CTABanner";
+import PageHero from "@/components/ui/PageHero";
 import EngagementSection from "./components/EngagementSection";
 import VolunteerPartnershipDivider from "./components/VolunteerPartnershipDivider";
-import VolunteerBackdrop from "./components/VolunteerBackdrop";
 import { Building2, Stethoscope, BookOpen, Users, Smartphone, Heart } from "lucide-react";
-import {
-  volunteerEyebrowHero,
-  volunteerH1,
-  volunteerHeroLead,
-  volunteerCardLabel,
-} from "./volunteerTypography";
+import { volunteerCardLabel } from "./volunteerTypography";
 
 export default function VolunteerPage() {
   return (
     <div className={`${GeistSans.variable} font-section`}>
-      {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-primary to-teal py-24">
-        <div className="absolute inset-0 z-0 opacity-[0.14]">
-          <Image
-            src="/images/IMG_8748.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <VolunteerBackdrop variant="hero" />
-        <div className="relative z-10 w-full px-6 text-center lg:px-12 xl:px-20">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className={volunteerEyebrowHero}>Get Involved</span>
-            <h1 className={`${volunteerH1} mb-5`}>Volunteer &amp; Partnership</h1>
-            <p className={volunteerHeroLead}>
-              Join our growing family of changemakers. Whether you volunteer
-              your time or partner with us, you help create brighter futures for
-              children.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        tag="Get Involved"
+        title="Volunteer & Partnership"
+        subtitle="Join our growing family of changemakers. Whether you volunteer your time or partner with us, you help create brighter futures for children."
+        imageSrc="/images/IMG_8748.jpg"
+      />
 
       {/* Volunteer Section */}
       <EngagementSection
