@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ClientOnly from "@/components/ui/ClientOnly";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
 import { sectionH2, bodyMuted } from "@/lib/typography";
 
@@ -43,37 +42,25 @@ export default function Newsletter() {
               </p>
             </div>
           ) : (
-            <ClientOnly
-              fallback={
-                <div
-                  className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-                  aria-hidden="true"
-                >
-                  <div className="flex-1 h-[46px] rounded-full border border-gray-200 bg-gray-50" />
-                  <div className="h-[46px] w-28 shrink-0 rounded-full bg-primary/80" />
-                </div>
-              }
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                required
+                className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0"
               >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  required
-                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </ClientOnly>
+                Subscribe
+              </button>
+            </form>
           )}
         </motion.div>
       </div>

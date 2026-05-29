@@ -173,23 +173,23 @@ export default function Hero() {
             >
               <div className="flex flex-col items-center gap-3 md:flex-row md:gap-2.5 lg:justify-start min-[1440px]:gap-4">
                 <Button
-                  href="/volunteer"
+                  href="/programs"
                   variant="white"
                   size="sm"
-                  className="!rounded-xl !px-6 !py-3 !text-sm !font-semibold lg:!px-7 lg:!text-[0.9rem] xl:!px-8 xl:!py-3.5 xl:!text-base min-[1440px]:!px-8 min-[1440px]:!py-3.5 min-[1440px]:!text-[0.9375rem] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  className="!rounded-xl !px-4 !py-2 !text-xs !font-semibold sm:!px-5 sm:!py-2 sm:!text-sm lg:!px-5 lg:!text-[0.875rem] xl:!px-6 xl:!py-2.5 xl:!text-sm min-[1440px]:!px-6 min-[1440px]:!py-2.5 min-[1440px]:!text-[0.9rem] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Volunteer With Us
+                  Get Involved
                 </Button>
                 <Link
                   href={IMPACT_STORY_VIDEO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Watch our impact story video on YouTube (opens in new tab)"
-                  className="group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white text-primary shadow-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:h-12 xl:w-12 min-[1440px]:h-11 min-[1440px]:w-11"
+                  className="group inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white text-primary shadow-lg transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:h-9 sm:w-9 xl:h-10 xl:w-10 min-[1440px]:h-9 min-[1440px]:w-9"
                 >
                   <Play
-                    size={16}
-                    className="ml-0.5 fill-primary stroke-primary xl:size-[18px] min-[1440px]:size-4"
+                    size={14}
+                    className="ml-0.5 fill-primary stroke-primary sm:size-[15px] xl:size-4 min-[1440px]:size-4"
                     aria-hidden
                   />
                 </Link>
@@ -198,7 +198,7 @@ export default function Hero() {
                 href="/about"
                 variant="outline"
                 size="sm"
-                className="!rounded-xl border-white/35 !px-6 !py-2.5 !text-sm !font-medium !text-white hover:!bg-white/10 hover:!text-white lg:!px-7 xl:!px-7 xl:!py-3 xl:!text-[0.95rem] min-[1440px]:!px-7 min-[1440px]:!py-3 min-[1440px]:!text-[0.9rem] focus-visible:ring-white"
+                className="!rounded-xl border-white/35 !px-4 !py-1.5 !text-xs !font-medium !text-white hover:!bg-white/10 hover:!text-white sm:!px-5 sm:!py-2 sm:!text-sm lg:!px-5 xl:!px-6 xl:!py-2.5 xl:!text-sm min-[1440px]:!px-6 min-[1440px]:!py-2.5 min-[1440px]:!text-[0.9rem] focus-visible:ring-white"
               >
                 Learn More
               </Button>

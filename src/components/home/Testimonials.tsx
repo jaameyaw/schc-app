@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Play, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { pullQuote } from "@/lib/typography";
-import ClientOnly from "@/components/ui/ClientOnly";
 import { blurPlaceholders } from "@/data/blur-placeholders";
 
 const AUTOPLAY_MS = 5000;
@@ -303,96 +302,76 @@ export default function Testimonials() {
 
                 <div className="hidden lg:block flex-1" />
 
-                <ClientOnly
-                  fallback={
-                    <div
-                      className="flex items-center gap-3 sm:gap-4"
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <button
+                    type="button"
+                    onClick={prev}
+                    aria-label="Previous testimonial"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-dark-text/15 text-dark-text flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  <div
+                    className="flex items-center gap-1.5 sm:gap-2"
+                    role="tablist"
+                    aria-label="Select testimonial"
+                  >
+                    {testimonials.map((t, i) => (
+                      <button
+                        key={t.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={i === index}
+                        aria-label={`Go to testimonial ${i + 1}: ${t.name}`}
+                        onClick={() => goTo(i)}
+                        className="p-2 -m-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg rounded-full"
+                      >
+                        <span
+                          className={`block h-1.5 rounded-full transition-all duration-300 ${
+                            i === index
+                              ? "w-8 sm:w-10 bg-primary"
+                              : "w-1.5 bg-dark-text/20 hover:bg-dark-text/40"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="relative w-10 h-10 sm:w-11 sm:h-11">
+                    <svg
+                      className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
+                      viewBox="0 0 44 44"
                       aria-hidden="true"
                     >
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-dark-text/15" />
-                      <div className="flex items-center gap-1.5 sm:gap-2">
-                        {testimonials.map((t) => (
-                          <span
-                            key={t.id}
-                            className="block h-1.5 w-1.5 rounded-full bg-dark-text/20"
-                          />
-                        ))}
-                      </div>
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-primary/80" />
-                    </div>
-                  }
-                >
-                  <div className="flex items-center gap-3 sm:gap-4">
+                      <motion.circle
+                        key={`ring-${index}`}
+                        cx="22"
+                        cy="22"
+                        r="21"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="text-primary"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{
+                          duration: AUTOPLAY_MS / 1000,
+                          ease: "linear",
+                        }}
+                      />
+                    </svg>
                     <button
                       type="button"
-                      onClick={prev}
-                      aria-label="Previous testimonial"
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-dark-text/15 text-dark-text flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg"
+                      onClick={next}
+                      aria-label="Next testimonial"
+                      className="relative w-full h-full rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-primary-dark transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg"
                     >
-                      <ChevronLeft className="w-5 h-5" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
-
-                    <div
-                      className="flex items-center gap-1.5 sm:gap-2"
-                      role="tablist"
-                      aria-label="Select testimonial"
-                    >
-                      {testimonials.map((t, i) => (
-                        <button
-                          key={t.id}
-                          type="button"
-                          role="tab"
-                          aria-selected={i === index}
-                          aria-label={`Go to testimonial ${i + 1}: ${t.name}`}
-                          onClick={() => goTo(i)}
-                          className="p-2 -m-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg rounded-full"
-                        >
-                          <span
-                            className={`block h-1.5 rounded-full transition-all duration-300 ${
-                              i === index
-                                ? "w-8 sm:w-10 bg-primary"
-                                : "w-1.5 bg-dark-text/20 hover:bg-dark-text/40"
-                            }`}
-                          />
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="relative w-10 h-10 sm:w-11 sm:h-11">
-                      <svg
-                        className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
-                        viewBox="0 0 44 44"
-                        aria-hidden="true"
-                      >
-                        <motion.circle
-                          key={`ring-${index}`}
-                          cx="22"
-                          cy="22"
-                          r="21"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          className="text-primary"
-                          strokeLinecap="round"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
-                          transition={{
-                            duration: AUTOPLAY_MS / 1000,
-                            ease: "linear",
-                          }}
-                        />
-                      </svg>
-                      <button
-                        type="button"
-                        onClick={next}
-                        aria-label="Next testimonial"
-                        className="relative w-full h-full rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-primary-dark transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg"
-                      >
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
-                    </div>
                   </div>
-                </ClientOnly>
+                </div>
               </div>
             </div>
           </div>
