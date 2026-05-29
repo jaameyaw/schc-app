@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     "Sylfi",
     "child welfare",
   ],
+  icons: {
+    icon: "/favicon-schc.png",
+  },
 };
 
 export default function RootLayout({
