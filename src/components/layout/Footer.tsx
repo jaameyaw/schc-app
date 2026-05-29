@@ -68,11 +68,11 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1 xl:col-span-1 min-w-0">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <Image
-                src="/images/logo.jpeg"
+                src="/logo-laptop.png"
                 alt="SCHC Logo"
                 width={56}
                 height={56}
-                className="rounded-full object-cover w-14 h-14"
+                className="rounded-full object-contain w-14 h-14 bg-white p-1"
               />
               <div className="leading-tight">
                 <p className="font-bold text-base tracking-tight">Sylfi&apos;s Child Health Corner</p>
