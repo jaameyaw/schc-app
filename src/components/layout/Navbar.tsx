@@ -52,7 +52,7 @@ function DonateButton({ className = "" }: { className?: string }) {
         href="/donate"
         onMouseMove={onMove}
         onMouseLeave={onLeave}
-        className="group relative inline-flex items-center gap-1 overflow-hidden rounded-lg bg-primary px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_6px_20px_-8px_rgba(31,168,74,0.45)] transition-[box-shadow] duration-300 hover:shadow-[0_10px_24px_-6px_rgba(31,168,74,0.5)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 xl:px-3.5 xl:py-1.5 xl:text-xs"
+        className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-lg bg-primary px-3.5 py-1.5 text-[13px] font-semibold text-white shadow-[0_6px_20px_-8px_rgba(31,168,74,0.45)] transition-[box-shadow] duration-300 hover:shadow-[0_10px_24px_-6px_rgba(31,168,74,0.5)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 xl:px-4 xl:py-1.5 xl:text-sm"
       >
         <span
           aria-hidden
@@ -60,7 +60,7 @@ function DonateButton({ className = "" }: { className?: string }) {
         />
         <HeartPhosphor
           weight="fill"
-          className="relative z-10 size-3 shrink-0 xl:size-3.5"
+          className="relative z-10 size-3.5 shrink-0 xl:size-4"
           aria-hidden
         />
         <span className="relative z-10">Donate</span>
@@ -87,9 +87,8 @@ function LaptopNavLinks() {
             )}
             <Link
               href={href}
-              className={`relative z-10 block px-2 xl:px-2.5 py-1 text-[11px] xl:text-xs font-medium tracking-tight transition-colors duration-200 ${
-                active ? "text-primary" : "text-slate-500 hover:text-dark-text"
-              }`}
+              className={`relative z-10 block px-2.5 xl:px-3 py-1 text-[13px] xl:text-sm font-medium tracking-tight transition-colors duration-200 ${active ? "text-primary" : "text-slate-500 hover:text-dark-text"
+                }`}
             >
               {label}
             </Link>
@@ -128,11 +127,10 @@ export default function Navbar() {
     <>
       {/* Classic navbar — tablet & mobile only (< lg / 1024px) */}
       <header
-        className={`lg:hidden sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled
+        className={`lg:hidden sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
             ? "bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]"
             : "bg-white/98 backdrop-blur-md"
-        }`}
+          }`}
       >
         <div className="h-[3px] bg-gradient-to-r from-primary/40 via-primary to-teal/50" />
 
@@ -143,7 +141,7 @@ export default function Navbar() {
               className="group flex shrink-0 items-center gap-1 sm:gap-1"
             >
               <Image
-                src="/images/logo.jpeg"
+                src="/schc logo.jpeg"
                 alt="SCHC Logo"
                 width={56}
                 height={56}
@@ -199,11 +197,10 @@ export default function Navbar() {
                   <Link
                     key={href}
                     href={href}
-                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200 ${
-                      pathname === href
+                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200 ${pathname === href
                         ? "bg-primary/[0.08] font-semibold text-primary"
                         : "text-dark-text hover:bg-gray-50 hover:text-primary"
-                    }`}
+                      }`}
                   >
                     {mobileLabel ?? label}
                   </Link>
@@ -233,7 +230,7 @@ export default function Navbar() {
             <div className="relative shrink-0">
               <div className="absolute inset-0 rounded-xl bg-primary/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <Image
-                src="/images/logo.jpeg"
+                src="/logo-laptop.png"
                 alt="Sylfi's Child Health Corner logo"
                 width={40}
                 height={40}
@@ -243,10 +240,10 @@ export default function Navbar() {
               />
             </div>
             <div className="min-w-0 leading-none">
-              <p className="truncate font-semibold tracking-tight text-dark-text text-xs xl:text-[13px]">
+              <p className="truncate font-semibold tracking-tight text-dark-text text-[13px] xl:text-sm">
                 Sylfi&apos;s Child Health Corner
               </p>
-              <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.16em] text-primary/90 xl:text-[9px]">
+              <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-primary/90 xl:text-[10px]">
                 SCHC · Ghana
               </p>
             </div>
