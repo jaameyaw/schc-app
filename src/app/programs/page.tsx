@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Programs | Sylfi's Child Health Corner",
   description:
     "Explore SCHC's programs: Stitch-A-Uniform, Feed and Treat the Street, Monthly Miracle Fund, and Healthy Bridge Initiative.",
+  alternates: {
+    canonical: "/programs",
+  },
 };
 
 const programs = [

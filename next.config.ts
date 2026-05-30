@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 365,
   },
+  experimental: {
+    optimizePackageImports: ["@phosphor-icons/react", "lucide-react"],
+  },
 };
 
 export default nextConfig;

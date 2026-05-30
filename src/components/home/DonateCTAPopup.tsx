@@ -11,8 +11,8 @@ const SCROLL_THRESHOLD = 0.35;
 
 const springTransition = {
   type: "spring" as const,
-  stiffness: 320,
-  damping: 28,
+  stiffness: 450,
+  damping: 26,
 };
 
 export default function DonateCTAPopup() {
@@ -102,7 +102,7 @@ export default function DonateCTAPopup() {
 
   const backdropMotion = reduceMotion
     ? { duration: 0.15 }
-    : { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
+    : { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const };
 
   const panelMotion = reduceMotion
     ? { duration: 0.15 }
@@ -119,7 +119,7 @@ export default function DonateCTAPopup() {
             aria-label="Close donation prompt"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.15, ease: "easeOut" } }}
             transition={backdropMotion}
             className="absolute inset-0 cursor-pointer bg-dark-text/60 backdrop-blur-[6px]"
             onClick={close}
@@ -167,7 +167,7 @@ export default function DonateCTAPopup() {
             exit={
               reduceMotion
                 ? { opacity: 0 }
-                : { opacity: 0, y: 16, scale: 0.98 }
+                : { opacity: 0, y: 16, scale: 0.98, transition: { duration: 0.15, ease: "easeOut" } }
             }
             transition={panelMotion}
             className="relative w-full max-w-[min(100%,28rem)] overflow-hidden rounded-[1.35rem] bg-white shadow-[0_28px_80px_-24px_rgba(31,45,47,0.45)] sm:max-w-md"
@@ -202,7 +202,7 @@ export default function DonateCTAPopup() {
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ ...springTransition, delay: 0.08 }}
+                transition={{ ...springTransition, delay: 0.04 }}
                 className="relative mb-5 flex items-start justify-between gap-4"
               >
                 <motion.div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/[0.12] to-teal/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">
@@ -227,7 +227,7 @@ export default function DonateCTAPopup() {
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ ...springTransition, delay: 0.12 }}
+                transition={{ ...springTransition, delay: 0.08 }}
                 className="relative space-y-3 sm:space-y-4"
               >
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-primary-dark/80">
@@ -254,7 +254,7 @@ export default function DonateCTAPopup() {
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ ...springTransition, delay: 0.18 }}
+                transition={{ ...springTransition, delay: 0.12 }}
                 className="relative mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:gap-3"
               >
                 <Link

@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "About Us | Sylfi's Child Health Corner",
   description:
     "Learn about SCHC's story, mission, vision, and the dedicated team working to improve child health in Ghana.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

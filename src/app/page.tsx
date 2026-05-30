@@ -1,4 +1,11 @@
+import { Metadata } from "next";
 import Hero from "@/components/home/Hero";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 import ImpactStats from "@/components/home/ImpactStats";
 import ProgramsPreview from "@/components/home/ProgramsPreview";
 import AboutPreview from "@/components/home/AboutPreview";
