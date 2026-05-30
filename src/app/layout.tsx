@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import Preloader from "@/components/ui/Preloader";
 import { siteConfig } from "@/lib/siteConfig";
 
 const poppins = Poppins({
@@ -99,6 +100,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-light-bg text-dark-text antialiased">
+        <Preloader />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
