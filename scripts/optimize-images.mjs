@@ -5,21 +5,29 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const PUBLIC = path.resolve("public");
-const TARGETS = [
-  "images/IMG_1453.jpg",
-  "images/thumbnail/thumbnail-mother.jpg",
-  "images/thumbnail/thumbnail-headmaster.jpg",
-  "images/thumbnail/thumbnail-victoria.jpg",
-  "images/thumbnail/thumbnail-afriyie.jpg",
-  "volunteer1.jpg",
-  "volunteer2.jpg",
-];
+
+// Recursively find all files in a directory
+async function getFiles(dir) {
+  const dirents = await fs.readdir(dir, { withFileTypes: true });
+  const files = await Promise.all(dirents.map((dirent) => {
+    const res = path.resolve(dir, dirent.name);
+    return dirent.isDirectory() ? getFiles(res) : res;
+  }));
+  return Array.prototype.concat(...files);
+}
+
+const allFiles = await getFiles(PUBLIC);
+const TARGETS = allFiles
+  .filter(file => file.match(/\.(jpe?g)$/i) && !file.endsWith(".orig.jpg"))
+  .map(file => path.relative(PUBLIC, file).replace(/\\/g, '/'));
 
 const MAX_WIDTH = 1600;
 const QUALITY = 78;
 const BLUR_SIZE = 20;
 
 const placeholders = {};
+
+console.log(`Found ${TARGETS.length} images to optimize.`);
 
 for (const rel of TARGETS) {
   const abs = path.join(PUBLIC, rel);

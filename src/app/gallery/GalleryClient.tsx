@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeader from "@/components/ui/SectionHeader";
 
@@ -66,34 +67,56 @@ export default function GalleryPage() {
 }
 
 function GalleryGrid({ images }: { images: typeof galleryImages }) {
+  const [visibleCount, setVisibleCount] = useState(12);
+
+  const visibleImages = images.slice(0, visibleCount);
+  const hasMore = visibleCount < images.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 12);
+  };
+
   return (
-    <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
-      {images.map((img, i) => (
-        <motion.div
-          key={img.src}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
-          className="break-inside-avoid group relative overflow-hidden rounded-xl"
-        >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            width={400}
-            height={300}
-            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-            <div>
-              <span className="inline-block px-2 py-0.5 bg-primary text-white text-xs font-semibold rounded-full mb-1">
-                {img.category}
-              </span>
-              <p className="text-white text-xs leading-snug">{img.alt}</p>
+    <div>
+      <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
+        {visibleImages.map((img, i) => (
+          <motion.div
+            key={img.src}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
+            className="break-inside-avoid group relative overflow-hidden rounded-xl"
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={400}
+              height={300}
+              className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+              <div>
+                <span className="inline-block px-2 py-0.5 bg-primary text-white text-xs font-semibold rounded-full mb-1">
+                  {img.category}
+                </span>
+                <p className="text-white text-xs leading-snug">{img.alt}</p>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </div>
+
+      {hasMore && (
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={handleLoadMore}
+            className="px-6 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl shadow-md hover:bg-primary-dark transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer"
+          >
+            Load More Images
+          </button>
+        </div>
+      )}
     </div>
   );
 }
