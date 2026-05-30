@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Play, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -56,9 +56,19 @@ const testimonials = [
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   const startTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
+    stopTimer();
+    // Don't autoplay when the user prefers reduced motion.
+    if (reduceMotion) return;
     timerRef.current = setInterval(() => {
       setIndex((i) => (i + 1) % testimonials.length);
     }, AUTOPLAY_MS);
@@ -66,10 +76,9 @@ export default function Testimonials() {
 
   useEffect(() => {
     startTimer();
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, []);
+    return stopTimer;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduceMotion]);
 
   const goTo = (next: number) => {
     const len = testimonials.length;
@@ -121,6 +130,10 @@ export default function Testimonials() {
           role="region"
           aria-roledescription="carousel"
           aria-label="Community testimonials"
+          onMouseEnter={stopTimer}
+          onMouseLeave={startTimer}
+          onFocus={stopTimer}
+          onBlur={startTimer}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-12 2xl:gap-16 items-center">
             {/* THUMBNAIL COLUMN */}
@@ -314,15 +327,14 @@ export default function Testimonials() {
 
                   <div
                     className="flex items-center gap-1.5 sm:gap-2"
-                    role="tablist"
+                    role="group"
                     aria-label="Select testimonial"
                   >
                     {testimonials.map((t, i) => (
                       <button
                         key={t.id}
                         type="button"
-                        role="tab"
-                        aria-selected={i === index}
+                        aria-current={i === index ? "true" : undefined}
                         aria-label={`Go to testimonial ${i + 1}: ${t.name}`}
                         onClick={() => goTo(i)}
                         className="p-2 -m-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-light-bg rounded-full"
@@ -354,12 +366,13 @@ export default function Testimonials() {
                         strokeWidth="1.5"
                         className="text-primary"
                         strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
+                        initial={{ pathLength: reduceMotion ? 1 : 0 }}
                         animate={{ pathLength: 1 }}
-                        transition={{
-                          duration: AUTOPLAY_MS / 1000,
-                          ease: "linear",
-                        }}
+                        transition={
+                          reduceMotion
+                            ? { duration: 0 }
+                            : { duration: AUTOPLAY_MS / 1000, ease: "linear" }
+                        }
                       />
                     </svg>
                     <button

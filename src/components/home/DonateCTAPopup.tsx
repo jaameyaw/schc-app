@@ -24,6 +24,8 @@ export default function DonateCTAPopup() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Client-only mount guard for the portal/dialog; intentional one-time setState.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -81,8 +83,46 @@ export default function DonateCTAPopup() {
     document.body.style.right = "0";
     document.body.style.width = "100%";
 
+    // Remember what was focused so we can restore it when the dialog closes.
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    const getFocusable = () => {
+      const dialog = dialogRef.current;
+      if (!dialog) return [] as HTMLElement[];
+      return Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetParent !== null || el === dialog);
+    };
+
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
+      if (event.key === "Escape") {
+        close();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey) {
+        if (active === first || active === dialogRef.current) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -97,6 +137,8 @@ export default function DonateCTAPopup() {
       document.body.style.width = prevWidth;
       window.scrollTo(0, scrollLockRef.current);
       window.removeEventListener("keydown", onKeyDown);
+      // Return focus to the element that had it before the dialog opened.
+      previouslyFocused?.focus?.();
     };
   }, [isOpen, close]);
 

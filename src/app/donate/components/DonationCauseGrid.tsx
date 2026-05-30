@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { blurPlaceholders } from "@/data/blur-placeholders";
+import { accentText, accentBg } from "@/lib/accent";
 
 type CauseColor = "primary" | "teal";
 
@@ -60,15 +62,15 @@ const causes: DonationCause[] = [
 
 const cardStyles = {
   primary: {
-    title: "text-primary",
-    accent: "bg-primary",
+    title: accentText.primary,
+    accent: accentBg.primary,
     ring: "group-hover:ring-primary/20",
     glow: "group-hover:shadow-[0_28px_56px_-20px_rgba(52,199,89,0.28)]",
     gradient: "from-primary/50 via-transparent to-transparent",
   },
   teal: {
-    title: "text-teal",
-    accent: "bg-teal",
+    title: accentText.teal,
+    accent: accentBg.teal,
     ring: "group-hover:ring-teal/20",
     glow: "group-hover:shadow-[0_28px_56px_-20px_rgba(39,194,199,0.28)]",
     gradient: "from-teal/50 via-transparent to-transparent",
@@ -97,6 +99,9 @@ export default function DonationCauseGrid() {
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+                {...(blurPlaceholders[cause.image]
+                  ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[cause.image] }
+                  : {})}
               />
               <div
                 className={`absolute inset-0 bg-gradient-to-t ${styles.gradient} via-dark-text/10 to-dark-text/25`}

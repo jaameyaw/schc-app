@@ -5,13 +5,27 @@ import { motion } from "framer-motion";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
 import { sectionH2, bodyMuted } from "@/lib/typography";
 
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
+
 export default function Newsletter() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      // Only show a success state on a real 200 from the API route.
+      setStatus(res.ok ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -32,7 +46,7 @@ export default function Newsletter() {
             children&apos;s health.
           </p>
 
-          {submitted ? (
+          {status === "success" ? (
             <div className="bg-green-50 border border-primary/20 rounded-xl px-8 py-6">
               <p className="text-primary font-semibold text-base sm:text-[0.9375rem]">
                 Thank you for subscribing!
@@ -42,25 +56,45 @@ export default function Newsletter() {
               </p>
             </div>
           ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                required
-                className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0"
+            <>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
               >
-                Subscribe
-              </button>
-            </form>
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="newsletter-email"
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {status === "submitting" ? "Subscribing..." : "Subscribe"}
+                </button>
+              </form>
+              {status === "error" && (
+                <p role="alert" className="text-gray-500 text-sm mt-4">
+                  Online sign-up isn&apos;t available just yet. Email us at{" "}
+                  <a
+                    href="mailto:childhealthcorner@gmail.com"
+                    className="font-semibold text-primary underline"
+                  >
+                    childhealthcorner@gmail.com
+                  </a>{" "}
+                  to stay updated.
+                </p>
+              )}
+            </>
           )}
         </motion.div>
       </div>

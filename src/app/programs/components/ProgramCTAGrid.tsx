@@ -10,6 +10,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
+import { accentText } from "@/lib/accent";
 
 interface CTA {
   icon: LucideIcon;
@@ -56,18 +57,18 @@ const ctas: CTA[] = [
 
 const cardStyles = {
   primary: {
-    title: "text-primary",
+    title: accentText.primary,
     iconBg:
       "bg-gradient-to-br from-primary/15 via-primary/8 to-transparent",
-    iconColor: "text-primary",
+    iconColor: accentText.primary,
     accent: "from-primary/60 via-primary/20 to-transparent",
     ring: "group-hover:ring-primary/25",
     glow: "group-hover:shadow-[0_24px_48px_-16px_rgba(52,199,89,0.22)]",
   },
   teal: {
-    title: "text-teal",
+    title: accentText.teal,
     iconBg: "bg-gradient-to-br from-teal/15 via-teal/8 to-transparent",
-    iconColor: "text-teal",
+    iconColor: accentText.teal,
     accent: "from-teal/60 via-teal/20 to-transparent",
     ring: "group-hover:ring-teal/25",
     glow: "group-hover:shadow-[0_24px_48px_-16px_rgba(39,194,199,0.22)]",

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import { siteConfig } from "@/lib/siteConfig";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -66,25 +69,29 @@ export default function RootLayout({
     "description": "Empowering families and caregivers to prioritize children's health and well-being through education, advocacy, and community engagement.",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Kumasi",
-      "addressCountry": "Ghana"
+      "addressLocality": siteConfig.location.city,
+      "addressCountry": siteConfig.location.country
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "childhealthcorner@gmail.com",
-      "telephone": "+233-54-712-4909",
+      "email": siteConfig.email,
+      "telephone": siteConfig.phone.intl,
       "contactType": "customer support"
     },
     "sameAs": [
-      "https://www.instagram.com/chc_kidshealth?igsh=MW1hZDVpeDZmbmJheg==",
-      "https://youtube.com/@childhealthcorner?si=VgWVhuEE0T4ojxzK",
-      "https://www.tiktok.com/@chc_kidshealth?_r=1&_t=ZS-96Dp9xARa1R",
-      "https://www.linkedin.com/company/child-health-corner/"
+      siteConfig.social.instagram,
+      siteConfig.social.youtube,
+      siteConfig.social.tiktok,
+      siteConfig.social.linkedin
     ]
   };
 
   return (
-    <html lang="en" className={poppins.className} data-scroll-behavior="smooth">
+    <html
+      lang="en"
+      className={`${poppins.variable} ${GeistSans.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <script
           type="application/ld+json"

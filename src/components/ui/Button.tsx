@@ -1,9 +1,12 @@
 import Link from "next/link";
 
+type Variant = "primary" | "teal" | "white" | "outline";
+type Size = "sm" | "lg";
+
 interface ButtonProps {
   href?: string;
-  variant?: "primary" | "teal" | "white" | "outline";
-  size?: "sm" | "lg";
+  variant?: Variant;
+  size?: Size;
   external?: boolean;
   className?: string;
   children: React.ReactNode;
@@ -12,16 +15,16 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const base = "inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
+const base = "inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
 
-const variants: Record<string, string> = {
-  primary: "bg-primary text-white hover:bg-primary-dark focus:ring-primary",
-  teal: "bg-teal text-white hover:bg-teal/90 focus:ring-teal",
-  white: "bg-white text-primary hover:bg-white/90 focus:ring-white",
-  outline: "bg-transparent border-2 border-current focus:ring-current",
+const variants: Record<Variant, string> = {
+  primary: "bg-primary text-white hover:bg-primary-dark focus-visible:ring-primary",
+  teal: "bg-teal text-white hover:bg-teal/90 focus-visible:ring-teal",
+  white: "bg-white text-primary hover:bg-white/90 focus-visible:ring-white",
+  outline: "bg-transparent border-2 border-current focus-visible:ring-current",
 };
 
-const sizes: Record<string, string> = {
+const sizes: Record<Size, string> = {
   sm: "px-5 py-2.5 text-sm",
   lg: "px-7 py-3.5 text-sm sm:text-[0.9375rem]",
 };

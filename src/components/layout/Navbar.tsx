@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 import { Heart as HeartPhosphor } from "@phosphor-icons/react";
 
-type NavLink = { href: string; label: string; mobileLabel?: string };
+type NavLink = { href: string; label: string };
 
 const navLinks: NavLink[] = [
   { href: "/", label: "Home" },
@@ -120,6 +120,8 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    // Close the mobile menu when the route changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsOpen(false);
   }, [pathname]);
 
@@ -193,7 +195,7 @@ export default function Navbar() {
               className="overflow-hidden border-t border-gray-100 bg-white"
             >
               <div className="flex w-full flex-col gap-1 px-6 py-4">
-                {navLinks.map(({ href, label, mobileLabel }) => (
+                {navLinks.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
@@ -202,7 +204,7 @@ export default function Navbar() {
                         : "text-dark-text hover:bg-gray-50 hover:text-primary"
                       }`}
                   >
-                    {mobileLabel ?? label}
+                    {label}
                   </Link>
                 ))}
                 <Link

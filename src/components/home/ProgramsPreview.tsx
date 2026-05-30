@@ -6,45 +6,16 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { blurPlaceholders } from "@/data/blur-placeholders";
+import { programs as programsData } from "@/data/programs";
 
-const programs = [
-  {
-    title: "Stitch-A-Uniform Campaign",
-    description:
-      "Providing school uniforms through sponsorship, fabric donations, and volunteer tailoring so every child attends school with dignity.",
-    image: "/images/IMG_1453.jpg",
-    category: "Education",
-    categoryColor: "bg-primary/85 text-white",
-    accentClass: "bg-primary",
-  },
-  {
-    title: "Feed and Treat the Street",
-    description:
-      "Delivering nutrition and medical care to street-connected children, breaking the cycle of neglected tropical diseases.",
-    image: "/images/IMG_7521.jpg",
-    category: "Health & Nutrition",
-    categoryColor: "bg-teal/85 text-white",
-    accentClass: "bg-teal",
-  },
-  {
-    title: "Monthly Miracle Fund",
-    description:
-      "Providing financial and medical support for children in need — offering relief to families facing urgent medical challenges.",
-    image: "/images/IMG_8438.jpg",
-    category: "Medical Support",
-    categoryColor: "bg-primary/85 text-white",
-    accentClass: "bg-primary",
-  },
-  {
-    title: "Healthy Bridge Initiative",
-    description:
-      "Connecting knowledge, empowering women, and protecting children through education pillars and inclusive advocacy.",
-    image: "/images/IMG_8557.jpg",
-    category: "Community",
-    categoryColor: "bg-teal/85 text-white",
-    accentClass: "bg-teal",
-  },
-];
+const programs = programsData.map((program) => ({
+  title: program.title,
+  description: program.preview.description,
+  image: program.preview.image,
+  category: program.category,
+  categoryColor: program.preview.categoryColor,
+  accentClass: program.preview.accentClass,
+}));
 
 export default function ProgramsPreview() {
   return (

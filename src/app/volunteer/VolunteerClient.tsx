@@ -1,6 +1,5 @@
 "use client";
 
-import { GeistSans } from "geist/font/sans";
 import CTABanner from "@/components/home/CTABanner";
 import PageHero from "@/components/ui/PageHero";
 import EngagementSection from "./components/EngagementSection";
@@ -10,7 +9,7 @@ import { volunteerCardLabel } from "./volunteerTypography";
 
 export default function VolunteerPage() {
   return (
-    <div className={`${GeistSans.variable} font-section`}>
+    <>
       <PageHero
         tag="Get Involved"
         title="Volunteer & Partnership"
@@ -85,6 +84,6 @@ export default function VolunteerPage() {
       />
 
       <CTABanner />
-    </div>
+    </>
   );
 }

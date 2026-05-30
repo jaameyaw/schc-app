@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Heart } from "lucide-react";
 import ProgramFeaturesPanel from "./ProgramFeaturesPanel";
+import { accentText as accentTextMap, accentBg as accentBgMap } from "@/lib/accent";
 
 export interface ProgramCardProps {
   id: string;
@@ -33,8 +34,8 @@ export default function ProgramCard({
   const ringGradient = isTeal
     ? "from-teal/60 via-aqua/40 to-primary/30"
     : "from-primary/60 via-primary/30 to-teal/30";
-  const accentText = isTeal ? "text-teal" : "text-primary";
-  const accentBg = isTeal ? "bg-teal" : "bg-primary";
+  const accentText = accentTextMap[color];
+  const accentBg = accentBgMap[color];
   const accentBorder = isTeal ? "border-teal/20" : "border-primary/20";
   const iconRingGradient = isTeal
     ? "from-teal via-aqua/80 to-teal/50"

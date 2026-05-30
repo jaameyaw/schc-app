@@ -11,9 +11,10 @@ import {
   ArrowSquareOut,
 } from "@phosphor-icons/react";
 import DonationCopyField from "./DonationCopyField";
+import { siteConfig } from "@/lib/siteConfig";
 
 const ACCOUNT_NAME = "SYLFIS CHILD HEALTH CORNER LBG";
-const PHONE = "+233 54 712 4909";
+const PHONE = siteConfig.phone.display;
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=KNUST+Kumasi+Ghana";
 
@@ -302,7 +303,7 @@ export default function DonationMethodsSection() {
                 Location
               </p>
               <p className="mt-1 text-[0.95rem] font-semibold text-dark-text">
-                KNUST, Kumasi, Ghana
+                {siteConfig.location.detail}
               </p>
             </div>
             <MethodActionLink
@@ -399,10 +400,10 @@ export default function DonationMethodsSection() {
         <p className="mt-6 text-center text-[0.9rem] leading-relaxed text-gray-500">
           Questions about donations?{" "}
           <a
-            href="mailto:childhealthcorner@gmail.com"
+            href={`mailto:${siteConfig.email}`}
             className="font-medium text-primary transition-colors hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
           >
-            childhealthcorner@gmail.com
+            {siteConfig.email}
           </a>
         </p>
       </motion.aside>

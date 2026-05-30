@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { blurPlaceholders } from "@/data/blur-placeholders";
 import {
   volunteerEyebrow,
   volunteerH2,
@@ -111,6 +112,9 @@ export default function EngagementSection({
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
+                {...(blurPlaceholders[image.src]
+                  ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[image.src] }
+                  : {})}
               />
             </div>
           </motion.div>

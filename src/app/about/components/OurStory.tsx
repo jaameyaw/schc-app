@@ -14,6 +14,7 @@ import {
   aboutImageFrame,
   aboutSectionPad,
 } from "../aboutTypography";
+import { blurPlaceholders } from "@/data/blur-placeholders";
 
 const storyImages = [
   { src: "/images/IMG_7537.jpg", alt: "SCHC activity", offset: false },
@@ -109,6 +110,9 @@ export default function OurStory() {
                     fill
                     sizes="(max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+                    {...(blurPlaceholders[img.src]
+                      ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[img.src] }
+                      : {})}
                   />
                 </motion.div>
               ))}

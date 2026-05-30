@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Play } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Particles from "@/components/ui/Particles";
+import { blurPlaceholders } from "@/data/blur-placeholders";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -99,6 +100,9 @@ function HeroImageCell({
         sizes="(min-width: 1440px) 26vw, (min-width: 1024px) 28vw, 90vw"
         className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
         priority={index === 0}
+        {...(blurPlaceholders[src]
+          ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[src] }
+          : {})}
       />
       <div
         aria-hidden
@@ -222,6 +226,9 @@ export default function Hero() {
                       fill
                       sizes="(min-width: 1440px) 48px, 40px"
                       className="object-cover"
+                      {...(blurPlaceholders[avatar.src]
+                        ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[avatar.src] }
+                        : {})}
                     />
                   </div>
                 ))}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
 import { sectionH2, bodyMuted } from "@/lib/typography";
+import { blurPlaceholders } from "@/data/blur-placeholders";
 
 export default function AboutPreview() {
   return (
@@ -28,6 +29,9 @@ export default function AboutPreview() {
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                {...(blurPlaceholders["/images/IMG_8529.jpg"]
+                  ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders["/images/IMG_8529.jpg"] }
+                  : {})}
               />
               <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/[0.08]" />
             </div>
@@ -40,6 +44,9 @@ export default function AboutPreview() {
                 fill
                 sizes="25vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                {...(blurPlaceholders["/images/IMG_8592.jpg"]
+                  ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders["/images/IMG_8592.jpg"] }
+                  : {})}
               />
               <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/[0.08]" />
             </div>

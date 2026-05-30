@@ -65,12 +65,22 @@ export default function Particles({ count = 40 }: { count?: number }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animId: number;
+    const reduceMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    let animId = 0;
+    let running = false;
+    let visible = true;
     const particles: Particle[] = [];
     const shapes: Shape[] = ["heart", "heart", "star", "circle"];
     const pointer = { x: 0, y: 0, active: false };
     let width = 0;
     let height = 0;
+
+    // Lighten the load on small screens.
+    const effectiveCount =
+      window.innerWidth < 640 ? Math.max(6, Math.round(count * 0.6)) : count;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -93,9 +103,8 @@ export default function Particles({ count = 40 }: { count?: number }) {
         pointer.y = y;
       }
     };
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < effectiveCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -111,9 +120,9 @@ export default function Particles({ count = 40 }: { count?: number }) {
       });
     }
 
-    const draw = () => {
+    // Render the current particle state without advancing the simulation.
+    const renderFrame = () => {
       ctx.clearRect(0, 0, width, height);
-
       for (const p of particles) {
         ctx.save();
         ctx.globalAlpha = p.alpha;
@@ -135,7 +144,13 @@ export default function Particles({ count = 40 }: { count?: number }) {
 
         ctx.fill();
         ctx.restore();
+      }
+    };
 
+    const tick = () => {
+      renderFrame();
+
+      for (const p of particles) {
         if (pointer.active) {
           const dx = p.x - pointer.x;
           const dy = p.y - pointer.y;
@@ -162,14 +177,58 @@ export default function Particles({ count = 40 }: { count?: number }) {
         if (p.x > width + p.size * 2) p.x = -p.size;
       }
 
-      animId = requestAnimationFrame(draw);
+      animId = requestAnimationFrame(tick);
     };
-    draw();
+
+    const start = () => {
+      if (running || reduceMotionQuery.matches || !visible) return;
+      running = true;
+      window.addEventListener("pointermove", handlePointerMove, {
+        passive: true,
+      });
+      animId = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(animId);
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+
+    // Respect reduced-motion: draw a single static frame, no rAF loop.
+    if (reduceMotionQuery.matches) {
+      renderFrame();
+    } else {
+      start();
+    }
+
+    // Pause the loop while the canvas is scrolled offscreen.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) start();
+        else stop();
+      },
+      { threshold: 0 },
+    );
+    observer.observe(canvas);
+
+    const handleMotionChange = () => {
+      if (reduceMotionQuery.matches) {
+        stop();
+        renderFrame();
+      } else {
+        start();
+      }
+    };
+    reduceMotionQuery.addEventListener("change", handleMotionChange);
 
     return () => {
-      cancelAnimationFrame(animId);
+      stop();
+      observer.disconnect();
+      reduceMotionQuery.removeEventListener("change", handleMotionChange);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", handlePointerMove);
     };
   }, [count]);
 

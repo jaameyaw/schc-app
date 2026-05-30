@@ -5,14 +5,35 @@ import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import { sectionH2, sectionH3, bodyMuted } from "@/lib/typography";
+import { siteConfig } from "@/lib/siteConfig";
+import { MailIcon, PhoneIcon, LocationIcon } from "@/components/ui/icons";
+
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const mailtoHref = `mailto:childhealthcorner@gmail.com?subject=${encodeURIComponent(
+    form.subject || "Message from the SCHC website",
+  )}&body=${encodeURIComponent(
+    `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+  )}`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      // Only show a success state on a real 200 from the API route.
+      setStatus(res.ok ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -47,20 +68,20 @@ export default function ContactPage() {
                 <ContactInfo
                   icon={<MailIcon />}
                   label="Email"
-                  value="childhealthcorner@gmail.com"
-                  href="mailto:childhealthcorner@gmail.com"
+                  value={siteConfig.email}
+                  href={`mailto:${siteConfig.email}`}
                 />
                 <ContactInfo
                   icon={<LocationIcon />}
                   label="Location"
-                  value="Kumasi, Ghana"
+                  value={siteConfig.location.full}
                   href="https://maps.google.com/?q=Kumasi%2C%20Ghana"
                 />
                 <ContactInfo
                   icon={<PhoneIcon />}
                   label="Phone"
-                  value="+233 54 712 4909"
-                  href="tel:+233547124909"
+                  value={siteConfig.phone.display}
+                  href={`tel:${siteConfig.phone.tel}`}
                 />
               </div>
 
@@ -72,22 +93,22 @@ export default function ContactPage() {
                     {
                       label: "Instagram",
                       color: "bg-[#E4405F]",
-                      href: "https://www.instagram.com/chc_kidshealth?igsh=MW1hZDVpeDZmbmJheg==",
+                      href: siteConfig.social.instagram,
                     },
                     {
                       label: "YouTube",
                       color: "bg-[#FF0000]",
-                      href: "https://youtube.com/@childhealthcorner?si=VgWVhuEE0T4ojxzK",
+                      href: siteConfig.social.youtube,
                     },
                     {
                       label: "TikTok",
                       color: "bg-dark-text",
-                      href: "https://www.tiktok.com/@chc_kidshealth?_r=1&_t=ZS-96Dp9xARa1R",
+                      href: siteConfig.social.tiktok,
                     },
                     {
                       label: "LinkedIn",
                       color: "bg-[#0A66C2]",
-                      href: "https://www.linkedin.com/company/child-health-corner/",
+                      href: siteConfig.social.linkedin,
                     },
                   ].map(({ label, color, href }) => (
                     <a
@@ -113,7 +134,7 @@ export default function ContactPage() {
             >
               <div className="bg-white rounded-2xl p-8 shadow-sm">
                 <h2 className={`${sectionH3} font-bold text-dark-text mb-6`}>Send a Message</h2>
-                {submitted ? (
+                {status === "success" ? (
                   <div className="text-center py-10">
                     <div className="flex justify-center mb-4">
                       <CheckCircle className="w-16 h-16 text-primary" />
@@ -125,10 +146,15 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-sm font-medium text-dark-text mb-1.5">
+                        <label
+                          htmlFor="contact-name"
+                          className="block text-sm font-medium text-dark-text mb-1.5"
+                        >
                           Full Name
                         </label>
                         <input
+                          id="contact-name"
+                          name="name"
                           type="text"
                           value={form.name}
                           onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -138,10 +164,15 @@ export default function ContactPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-dark-text mb-1.5">
+                        <label
+                          htmlFor="contact-email"
+                          className="block text-sm font-medium text-dark-text mb-1.5"
+                        >
                           Email Address
                         </label>
                         <input
+                          id="contact-email"
+                          name="email"
                           type="email"
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -152,10 +183,15 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-dark-text mb-1.5">
+                      <label
+                        htmlFor="contact-subject"
+                        className="block text-sm font-medium text-dark-text mb-1.5"
+                      >
                         Subject
                       </label>
                       <input
+                        id="contact-subject"
+                        name="subject"
                         type="text"
                         value={form.subject}
                         onChange={(e) => setForm({ ...form, subject: e.target.value })}
@@ -165,10 +201,15 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-dark-text mb-1.5">
+                      <label
+                        htmlFor="contact-message"
+                        className="block text-sm font-medium text-dark-text mb-1.5"
+                      >
                         Message
                       </label>
                       <textarea
+                        id="contact-message"
+                        name="message"
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         required
@@ -177,11 +218,25 @@ export default function ContactPage() {
                         placeholder="Tell us more..."
                       />
                     </div>
+                    {status === "error" && (
+                      <div
+                        role="alert"
+                        className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800"
+                      >
+                        Online submission isn&apos;t available just yet. Please email us
+                        directly at{" "}
+                        <a href={mailtoHref} className="font-semibold underline">
+                          childhealthcorner@gmail.com
+                        </a>
+                        .
+                      </div>
+                    )}
                     <button
                       type="submit"
-                      className="w-full py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 text-sm"
+                      disabled={status === "submitting"}
+                      className="w-full py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      Send Message
+                      {status === "submitting" ? "Sending..." : "Send Message"}
                     </button>
                   </form>
                 )}
@@ -217,40 +272,5 @@ function ContactInfo({
         </a>
       </div>
     </div>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-    </svg>
-  );
-}
-
-function LocationIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M19 11c0 5-7 10-7 10s-7-5-7-10a7 7 0 1 1 14 0z"
-      />
-    </svg>
   );
 }

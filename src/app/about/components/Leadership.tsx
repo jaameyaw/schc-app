@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { blurPlaceholders } from "@/data/blur-placeholders";
 import {
   aboutEyebrow,
   aboutH2Centered,
@@ -106,11 +108,16 @@ function LeaderCard({
       <div className="relative aspect-[4/5] w-full overflow-hidden">
         {showPhoto ? (
           <>
-            <img
+            <Image
               src={person.photo}
               alt={person.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               onError={() => setImgError(true)}
               className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              {...(blurPlaceholders[person.photo]
+                ? { placeholder: "blur" as const, blurDataURL: blurPlaceholders[person.photo] }
+                : {})}
             />
             <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-dark-text/50 to-transparent" />
           </>
