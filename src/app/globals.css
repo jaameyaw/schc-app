@@ -44,9 +44,3 @@ body {
 .loader-spinner--animate {
   animation: loader-spin 0.85s linear infinite;
 }
-
-@keyframes force-hide-preloader {
-  0% { opacity: 1; visibility: visible; pointer-events: auto; }
-  85% { opacity: 1; visibility: visible; pointer-events: auto; }
-  100% { opacity: 0; visibility: hidden; pointer-events: none; }
-}
