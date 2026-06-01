@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import Particles from "@/components/ui/Particles";
+
 import { siteConfig } from "@/lib/siteConfig";
 import {
   InstagramIcon,
@@ -53,7 +53,7 @@ export default function Footer() {
       <div className="absolute -left-32 top-0 w-[420px] h-[420px] rounded-full bg-primary/8 blur-[120px] pointer-events-none -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-[280px] h-[280px] rounded-full bg-teal/8 blur-[90px] pointer-events-none translate-y-1/3" />
 
-      <Particles count={14} />
+
 
       <div className="relative w-full px-6 sm:px-8 lg:px-8 xl:px-12 2xl:px-20 pt-16 pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-10 lg:gap-x-10 lg:gap-y-12 xl:gap-12">
