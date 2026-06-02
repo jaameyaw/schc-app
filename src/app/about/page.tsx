@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AboutHero from "./components/AboutHero";
 import OurStory from "./components/OurStory";
+import TrustAndTransparency from "./components/TrustAndTransparency";
 import MissionVision from "./components/MissionVision";
 import AboutImpactVideo from "./components/AboutImpactVideo";
 import Leadership from "./components/Leadership";
@@ -21,6 +22,7 @@ export default function AboutPage() {
       <AboutHero />
       <OurStory />
       <MissionVision />
+      <TrustAndTransparency />
       <AboutImpactVideo />
       <Leadership />
       <CTABanner />

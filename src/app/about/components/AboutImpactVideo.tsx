@@ -17,7 +17,7 @@ const VIDEO_URL = "https://youtu.be/CVoC3DHknhg?si=KuGSEN7w5-9AcuIw";
 
 export default function AboutImpactVideo() {
   return (
-    <section className="relative mt-6 overflow-hidden bg-white sm:mt-8 lg:mt-10">
+    <section className="relative overflow-hidden bg-white">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-12 -top-28 h-[420px] w-[420px] rounded-full bg-teal/[0.06] blur-3xl"
