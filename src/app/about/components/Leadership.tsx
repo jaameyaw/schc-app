@@ -40,14 +40,14 @@ const leaders = [
     photo: "/images/leadership/maud-makafui.jpg",
   },
   {
-    name: "Adjei Ama",
-    role: "Programs & Initiatives Manager",
-    photo: "/images/leadership/adjei-ama.jpg",
+    name: "Colette Nana Ama Nyarko",
+    role: "General Secretary",
+    photo: "/images/leadership/colette-nyarko.jpg",
   },
   {
-    name: "Benedict Oduro & Shadrack Adomako",
-    role: "Volunteer Coordinators",
-    photo: "/images/leadership/shadrack-adomako.jpg",
+    name: "Johnson Ameyaw",
+    role: "Web Developer and Manager",
+    photo: "/images/leadership/johnson-ameyaw.PNG",
   },
   {
     name: "Yaw Addo",
@@ -55,9 +55,19 @@ const leaders = [
     photo: "/images/leadership/yaw-addo.jpg",
   },
   {
-    name: "Colette Nana Ama Nyarko",
-    role: "General Secretary",
-    photo: "/images/leadership/colette-nyarko.jpg",
+    name: "Adjei Ama",
+    role: "Programs & Initiatives Manager",
+    photo: "/images/leadership/adjei-ama.jpg",
+  },
+  {
+    name: "Benedict Oduro",
+    role: "Content Strategist",
+    photo: "/images/leadership/benedict-odoru.jpeg",
+  },
+  {
+    name: "Shadrack Adomako",
+    role: "Volunteer Coordinator",
+    photo: "/images/leadership/shadrack-adomako.jpg",
   },
 ];
 
