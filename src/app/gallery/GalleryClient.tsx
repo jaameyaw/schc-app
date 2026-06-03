@@ -19,7 +19,7 @@ const galleryImages = [
   { src: "/images/IMG_1509.jpg", alt: "Education support activity", category: "Education" },
   { src: "/images/IMG_1734.jpeg", alt: "Education program", category: "Feed the Street" },
   { src: "/images/IMG_1511.jpg", alt: "Community engagement", category: "Outreach" },
-  { src: "/images/IMG_1512.jpg", alt: "Outreach program", category: "Outreach" },
+
   { src: "/images/IMG_7521.jpg", alt: "Feed and Treat the Street", category: "Feed the Street" },
   { src: "/images/IMG_1729.jpeg", alt: "Team outreach", category: "Feed the Street" },
   { src: "/images/IMG_7537.jpg", alt: "Street children outreach", category: "Feed the Street" },
@@ -49,7 +49,7 @@ const galleryImages = [
   { src: "/images/IMG_8748.jpg", alt: "Outreach team", category: "Volunteers" },
   { src: "/images/IMG_8788.jpg", alt: "Community support", category: "Outreach" },
   { src: "/images/IMG_8989.jpg", alt: "Volunteer team", category: "Volunteers" },
-  { src: "/images/IMG_8991.jpg", alt: "Community program", category: "Outreach" },
+
   { src: "/images/IMG_9002.jpg", alt: "Health awareness", category: "Health" },
   { src: "/images/IMG_9036.jpg", alt: "Partnership event", category: "Outreach" },
   { src: "/images/IMG_9041.jpg", alt: "Children engagement", category: "Education" },
