@@ -8,22 +8,33 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { blurPlaceholders } from "@/data/blur-placeholders";
 
 const galleryImages = [
+  { src: "/images/IMG_1726.jpeg", alt: "Outreach event", category: "Feed the Street" },
   { src: "/images/IMG_1453.jpg", alt: "School outreach - Uniform distribution", category: "Stitch-A-Uniform" },
+  { src: "/images/volunteer1.jpg", alt: "Volunteer team", category: "Feed the Street" },
   { src: "/images/IMG_1464.jpg", alt: "Uniform campaign activity", category: "Stitch-A-Uniform" },
+  { src: "/images/IMG_1727.jpeg", alt: "Community gathering", category: "Feed the Street" },
   { src: "/images/IMG_1482.jpg", alt: "Community outreach", category: "Outreach" },
   { src: "/images/IMG_1502.jpg", alt: "School donation event", category: "Outreach" },
+  { src: "/images/IMG_1728.jpeg", alt: "Volunteer activity", category: "Feed the Street" },
   { src: "/images/IMG_1509.jpg", alt: "Education support activity", category: "Education" },
+  { src: "/images/IMG_1734.jpeg", alt: "Education program", category: "Feed the Street" },
   { src: "/images/IMG_1511.jpg", alt: "Community engagement", category: "Outreach" },
   { src: "/images/IMG_1512.jpg", alt: "Outreach program", category: "Outreach" },
-  { src: "/images/IMG_7521.jpg", alt: "Feed and Treat the Street", category: "Feed & Treat" },
-  { src: "/images/IMG_7537.jpg", alt: "Street children outreach", category: "Feed & Treat" },
-  { src: "/images/IMG_7540.jpg", alt: "Nutrition program", category: "Feed & Treat" },
-  { src: "/images/IMG_7556.jpg", alt: "Medical care outreach", category: "Feed & Treat" },
+  { src: "/images/IMG_7521.jpg", alt: "Feed and Treat the Street", category: "Feed the Street" },
+  { src: "/images/IMG_1729.jpeg", alt: "Team outreach", category: "Feed the Street" },
+  { src: "/images/IMG_7537.jpg", alt: "Street children outreach", category: "Feed the Street" },
+  { src: "/images/volunteer2.jpg", alt: "Volunteer activity", category: "Feed the Street" },
+  { src: "/images/IMG_7540.jpg", alt: "Nutrition program", category: "Feed the Street" },
+  { src: "/images/IMG_1735.jpeg", alt: "Children activities", category: "Feed the Street" },
+  { src: "/images/IMG_7556.jpg", alt: "Medical care outreach", category: "Feed the Street" },
   { src: "/images/IMG_7561.jpg", alt: "Community health", category: "Health" },
+  { src: "/images/IMG_1737.jpeg", alt: "Community support", category: "Feed the Street" },
   { src: "/images/IMG_7562.jpg", alt: "Health education", category: "Health" },
   { src: "/images/IMG_7568.jpg", alt: "Outreach event", category: "Outreach" },
+  { src: "/images/IMG_1739.jpeg", alt: "Medical care outreach", category: "Feed the Street" },
   { src: "/images/IMG_7590.jpg", alt: "Community program", category: "Outreach" },
   { src: "/images/IMG_7597.jpg", alt: "Children program", category: "Education" },
+  { src: "/images/IMG_1741.jpeg", alt: "Nutrition program", category: "Feed the Street" },
   { src: "/images/IMG_8438.jpg", alt: "Monthly Miracle Fund", category: "Monthly Miracle" },
   { src: "/images/IMG_8529.jpg", alt: "Team outreach", category: "Outreach" },
   { src: "/images/IMG_8547.jpg", alt: "School visit", category: "Education" },
@@ -45,7 +56,8 @@ const galleryImages = [
   { src: "/images/IMG_9156.jpg", alt: "Impact event", category: "Outreach" },
 ];
 
-const categories = ["All", "Outreach", "Education", "Health", "Feed & Treat", "Stitch-A-Uniform", "Monthly Miracle", "Healthy Bridge", "Volunteers"];
+const categories = ["All", "Outreach", "Education", "Health", "Feed the Street", "Stitch-A-Uniform", "Monthly Miracle", "Healthy Bridge", "Volunteers"];
+
 
 export default function GalleryPage() {
   return (
