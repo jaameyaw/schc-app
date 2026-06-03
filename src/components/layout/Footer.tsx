@@ -187,7 +187,7 @@ export default function Footer() {
         <div className="w-full px-6 sm:px-8 lg:px-8 xl:px-12 2xl:px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/70 text-sm">
           <p>&copy; {new Date().getFullYear()} Sylfi&apos;s Child Health Corner (SCHC). All rights reserved.</p>
           <p className="text-white/60">
-            Made with &#9829; by{" "}
+            Made with <span className="text-primary">&#9829;</span> by{" "}
             <a
               href={johnsonGithubUrl}
               target="_blank"
