@@ -3,8 +3,7 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const CONTACT_TO = "childhealthcorner@gmail.com";
-// Replace with a verified sending address once the Resend domain is verified.
-const CONTACT_FROM = "SCHC Website <onboarding@resend.dev>";
+const CONTACT_FROM = "SCHC Website <hello@mail.childhealthcorner.org>";
 
 type ContactPayload = {
   name?: string;
