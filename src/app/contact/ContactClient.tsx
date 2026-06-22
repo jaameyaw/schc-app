@@ -10,28 +10,82 @@ import { MailIcon, PhoneIcon, LocationIcon } from "@/components/ui/icons";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [status, setStatus] = useState<SubmitStatus>("idle");
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
-  const mailtoHref = `mailto:childhealthcorner@gmail.com?subject=${encodeURIComponent(
+const initialForm: ContactFormData = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
+
+function buildMailtoHref(form: ContactFormData) {
+  return `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     form.subject || "Message from the SCHC website",
   )}&body=${encodeURIComponent(
     `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
   )}`;
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
+export default function ContactPage() {
+  const [form, setForm] = useState<ContactFormData>(initialForm);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showMailtoFallback, setShowMailtoFallback] = useState(false);
+
+  const updateField = (field: keyof ContactFormData, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (status === "error") {
+      setStatus("idle");
+      setErrorMessage(null);
+      setShowMailtoFallback(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("submitting");
+    setErrorMessage(null);
+    setShowMailtoFallback(false);
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      // Only show a success state on a real 200 from the API route.
-      setStatus(res.ok ? "success" : "error");
+
+      if (res.ok) {
+        setForm(initialForm);
+        setStatus("success");
+        return;
+      }
+
+      if (res.status === 501) {
+        setShowMailtoFallback(true);
+        setStatus("error");
+        return;
+      }
+
+      let message = "Something went wrong. Please try again.";
+      try {
+        const data = (await res.json()) as { error?: string };
+        if (data.error) message = data.error;
+      } catch {
+        // Non-JSON error body — keep the generic message.
+      }
+
+      setErrorMessage(message);
+      setStatus("error");
     } catch {
+      setErrorMessage(
+        "Unable to reach the server. Check your connection and try again.",
+      );
       setStatus("error");
     }
   };
@@ -135,12 +189,21 @@ export default function ContactPage() {
               <div className="bg-white rounded-2xl p-8 shadow-sm">
                 <h2 className={`${sectionH3} font-bold text-dark-text mb-6`}>Send a Message</h2>
                 {status === "success" ? (
-                  <div className="text-center py-10">
+                  <div className="text-center py-10" aria-live="polite">
                     <div className="flex justify-center mb-4">
-                      <CheckCircle className="w-16 h-16 text-primary" />
+                      <CheckCircle className="w-16 h-16 text-primary" aria-hidden />
                     </div>
                     <h3 className={`${sectionH3} font-bold text-dark-text mb-2`}>Message Sent!</h3>
-                    <p className="text-gray-500">Thank you for reaching out. We&apos;ll get back to you shortly.</p>
+                    <p className="text-gray-500 mb-6">
+                      Thank you for reaching out. We&apos;ll get back to you shortly.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setStatus("idle")}
+                      className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                    >
+                      Send another message
+                    </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -156,8 +219,9 @@ export default function ContactPage() {
                           id="contact-name"
                           name="name"
                           type="text"
+                          autoComplete="name"
                           value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          onChange={(e) => updateField("name", e.target.value)}
                           required
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="John Doe"
@@ -174,8 +238,9 @@ export default function ContactPage() {
                           id="contact-email"
                           name="email"
                           type="email"
+                          autoComplete="email"
                           value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
+                          onChange={(e) => updateField("email", e.target.value)}
                           required
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="john@example.com"
@@ -193,8 +258,9 @@ export default function ContactPage() {
                         id="contact-subject"
                         name="subject"
                         type="text"
+                        autoComplete="off"
                         value={form.subject}
-                        onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                        onChange={(e) => updateField("subject", e.target.value)}
                         required
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                         placeholder="How can we help?"
@@ -211,7 +277,7 @@ export default function ContactPage() {
                         id="contact-message"
                         name="message"
                         value={form.message}
-                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        onChange={(e) => updateField("message", e.target.value)}
                         required
                         rows={5}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors resize-none"
@@ -220,20 +286,42 @@ export default function ContactPage() {
                     </div>
                     {status === "error" && (
                       <div
+                        id="contact-form-error"
                         role="alert"
+                        aria-live="assertive"
                         className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800"
                       >
-                        Online submission isn&apos;t available just yet. Please email us
-                        directly at{" "}
-                        <a href={mailtoHref} className="font-semibold underline">
-                          childhealthcorner@gmail.com
-                        </a>
-                        .
+                        {showMailtoFallback ? (
+                          <>
+                            Online submission isn&apos;t available just yet. Please email us
+                            directly at{" "}
+                            <a
+                              href={buildMailtoHref(form)}
+                              className="font-semibold underline"
+                            >
+                              {siteConfig.email}
+                            </a>
+                            .
+                          </>
+                        ) : (
+                          <>
+                            {errorMessage}{" "}
+                            You can also email us at{" "}
+                            <a
+                              href={`mailto:${siteConfig.email}`}
+                              className="font-semibold underline"
+                            >
+                              {siteConfig.email}
+                            </a>
+                            .
+                          </>
+                        )}
                       </div>
                     )}
                     <button
                       type="submit"
                       disabled={status === "submitting"}
+                      aria-describedby={status === "error" ? "contact-form-error" : undefined}
                       className="w-full py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {status === "submitting" ? "Sending..." : "Send Message"}

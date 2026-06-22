@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const CONTACT_TO = "childhealthcorner@gmail.com";
+const CONTACT_TO = "johnson11ameyaw@gmail.com";
 const CONTACT_FROM = "SCHC Website <hello@mail.childhealthcorner.org>";
 
 type ContactPayload = {
