@@ -184,16 +184,9 @@ export default function ContactPage() {
                       <CheckCircle className="w-16 h-16 text-primary" aria-hidden />
                     </div>
                     <h3 className={`${sectionH3} font-bold text-dark-text mb-2`}>Message Sent!</h3>
-                    <p className="text-gray-500 mb-6">
+                    <p className="text-gray-500">
                       Thank you for reaching out. We&apos;ll get back to you shortly.
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => setStatus("idle")}
-                      className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
-                    >
-                      Send another message
-                    </button>
                   </div>
                 ) : (
                   <form
