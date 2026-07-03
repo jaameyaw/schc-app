@@ -1,28 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import { sectionH2, sectionH3, bodyMuted } from "@/lib/typography";
 import { siteConfig } from "@/lib/siteConfig";
+import { contactSchema, type ContactFormData } from "@/lib/contactSchema";
 import { MailIcon, PhoneIcon, LocationIcon } from "@/components/ui/icons";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
-
-type ContactFormData = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-};
-
-const initialForm: ContactFormData = {
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
-};
 
 function buildMailtoHref(form: ContactFormData) {
   return `mailto:${siteConfig.email}?subject=${encodeURIComponent(
@@ -33,13 +22,15 @@ function buildMailtoHref(form: ContactFormData) {
 }
 
 export default function ContactPage() {
-  const [form, setForm] = useState<ContactFormData>(initialForm);
+  const { register, handleSubmit, reset, getValues } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showMailtoFallback, setShowMailtoFallback] = useState(false);
 
-  const updateField = (field: keyof ContactFormData, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const clearApiError = () => {
     if (status === "error") {
       setStatus("idle");
       setErrorMessage(null);
@@ -47,8 +38,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (form: ContactFormData) => {
     setStatus("submitting");
     setErrorMessage(null);
     setShowMailtoFallback(false);
@@ -61,7 +51,7 @@ export default function ContactPage() {
       });
 
       if (res.ok) {
-        setForm(initialForm);
+        reset();
         setStatus("success");
         return;
       }
@@ -206,7 +196,11 @@ export default function ContactPage() {
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    noValidate
+                    className="space-y-5"
+                  >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label
@@ -217,12 +211,9 @@ export default function ContactPage() {
                         </label>
                         <input
                           id="contact-name"
-                          name="name"
                           type="text"
                           autoComplete="name"
-                          value={form.name}
-                          onChange={(e) => updateField("name", e.target.value)}
-                          required
+                          {...register("name", { onChange: clearApiError })}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="John Doe"
                         />
@@ -236,12 +227,9 @@ export default function ContactPage() {
                         </label>
                         <input
                           id="contact-email"
-                          name="email"
                           type="email"
                           autoComplete="email"
-                          value={form.email}
-                          onChange={(e) => updateField("email", e.target.value)}
-                          required
+                          {...register("email", { onChange: clearApiError })}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="john@example.com"
                         />
@@ -256,12 +244,9 @@ export default function ContactPage() {
                       </label>
                       <input
                         id="contact-subject"
-                        name="subject"
                         type="text"
                         autoComplete="off"
-                        value={form.subject}
-                        onChange={(e) => updateField("subject", e.target.value)}
-                        required
+                        {...register("subject", { onChange: clearApiError })}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                         placeholder="How can we help?"
                       />
@@ -275,11 +260,8 @@ export default function ContactPage() {
                       </label>
                       <textarea
                         id="contact-message"
-                        name="message"
-                        value={form.message}
-                        onChange={(e) => updateField("message", e.target.value)}
-                        required
                         rows={5}
+                        {...register("message", { onChange: clearApiError })}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors resize-none"
                         placeholder="Tell us more..."
                       />
@@ -296,7 +278,7 @@ export default function ContactPage() {
                             Online submission isn&apos;t available just yet. Please email us
                             directly at{" "}
                             <a
-                              href={buildMailtoHref(form)}
+                              href={buildMailtoHref(getValues())}
                               className="font-semibold underline"
                             >
                               {siteConfig.email}
