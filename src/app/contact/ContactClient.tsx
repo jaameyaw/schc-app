@@ -22,7 +22,13 @@ function buildMailtoHref(form: ContactFormData) {
 }
 
 export default function ContactPage() {
-  const { register, handleSubmit, reset, getValues } = useForm<ContactFormData>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
@@ -206,10 +212,16 @@ export default function ContactPage() {
                           id="contact-name"
                           type="text"
                           autoComplete="name"
+                          aria-invalid={errors.name ? true : undefined}
                           {...register("name", { onChange: clearApiError })}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="John Doe"
                         />
+                        {errors.name && (
+                          <p className="mt-1.5 text-xs text-red-600">
+                            {errors.name.message}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label
@@ -222,10 +234,16 @@ export default function ContactPage() {
                           id="contact-email"
                           type="email"
                           autoComplete="email"
+                          aria-invalid={errors.email ? true : undefined}
                           {...register("email", { onChange: clearApiError })}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                           placeholder="john@example.com"
                         />
+                        {errors.email && (
+                          <p className="mt-1.5 text-xs text-red-600">
+                            {errors.email.message}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -239,10 +257,16 @@ export default function ContactPage() {
                         id="contact-subject"
                         type="text"
                         autoComplete="off"
+                        aria-invalid={errors.subject ? true : undefined}
                         {...register("subject", { onChange: clearApiError })}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                         placeholder="How can we help?"
                       />
+                      {errors.subject && (
+                        <p className="mt-1.5 text-xs text-red-600">
+                          {errors.subject.message}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label
@@ -254,10 +278,16 @@ export default function ContactPage() {
                       <textarea
                         id="contact-message"
                         rows={5}
+                        aria-invalid={errors.message ? true : undefined}
                         {...register("message", { onChange: clearApiError })}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-dark-text text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors resize-none"
                         placeholder="Tell us more..."
                       />
+                      {errors.message && (
+                        <p className="mt-1.5 text-xs text-red-600">
+                          {errors.message.message}
+                        </p>
+                      )}
                     </div>
                     {status === "error" && (
                       <div
@@ -297,7 +327,7 @@ export default function ContactPage() {
                       type="submit"
                       disabled={status === "submitting"}
                       aria-describedby={status === "error" ? "contact-form-error" : undefined}
-                      className="w-full py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="w-full py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {status === "submitting" ? "Sending..." : "Send Message"}
                     </button>
