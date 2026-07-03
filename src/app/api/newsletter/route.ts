@@ -30,9 +30,6 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    // Resend is not configured yet (missing API key).
-    // The client treats this as "subscription unavailable" and shows
-    // an honest fallback rather than a fake success state.
     return NextResponse.json(
       { error: "Newsletter signup is not configured yet." },
       { status: 501 },

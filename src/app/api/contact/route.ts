@@ -32,9 +32,6 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    // Resend is not configured yet (pending domain verification).
-    // The client treats this as "online submission unavailable" and shows
-    // an honest fallback rather than a fake success state.
     return NextResponse.json(
       { error: "Email delivery is not configured yet." },
       { status: 501 },
