@@ -4,25 +4,40 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
 import { sectionH2, bodyMuted } from "@/lib/typography";
+import { newsletterSchema } from "@/lib/newsletterSchema";
 
-type SubmitStatus = "idle" | "submitting" | "success" | "error";
+type SubmitStatus = "idle" | "submitting" | "success" | "error" | "unavailable";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    const parsed = newsletterSchema.safeParse({ email });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message ?? "Enter a valid email");
+      return;
+    }
+    setError(null);
     setStatus("submitting");
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: parsed.data.email }),
       });
       // Only show a success state on a real 200 from the API route.
-      setStatus(res.ok ? "success" : "error");
+      // 501 means signup isn't configured yet (missing API key); everything
+      // else is a temporary failure the user can retry.
+      if (res.ok) {
+        setStatus("success");
+      } else if (res.status === 501) {
+        setStatus("unavailable");
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }
