@@ -84,15 +84,20 @@ export default function Newsletter() {
                   name="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (error) setError(null);
+                  }}
                   placeholder="Enter your email address"
                   required
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? "newsletter-email-error" : undefined}
                   className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
                 />
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {status === "submitting" ? "Subscribing..." : "Subscribe"}
                 </button>
