@@ -102,7 +102,16 @@ export default function Newsletter() {
                   {status === "submitting" ? "Subscribing..." : "Subscribe"}
                 </button>
               </form>
-              {status === "error" && (
+              {error && (
+                <p
+                  id="newsletter-email-error"
+                  role="alert"
+                  className="text-red-600 text-sm mt-3"
+                >
+                  {error}
+                </p>
+              )}
+              {status === "unavailable" && (
                 <p role="alert" className="text-gray-500 text-sm mt-4">
                   Online sign-up isn&apos;t available just yet. Email us at{" "}
                   <a
@@ -112,6 +121,11 @@ export default function Newsletter() {
                     childhealthcorner@gmail.com
                   </a>{" "}
                   to stay updated.
+                </p>
+              )}
+              {status === "error" && (
+                <p role="alert" className="text-gray-500 text-sm mt-4">
+                  Something went wrong. Please try again in a moment.
                 </p>
               )}
             </>
