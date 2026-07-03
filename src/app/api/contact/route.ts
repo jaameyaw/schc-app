@@ -1,19 +1,16 @@
 import { NextResponse } from "next/server";
+import { createElement } from "react";
+import { render } from "@react-email/render";
+import { ContactEmail } from "@/emails/ContactEmail";
+import { contactSchema } from "@/lib/contactSchema";
 
 export const runtime = "nodejs";
 
-const CONTACT_TO = "johnson11ameyaw@gmail.com";
-const CONTACT_FROM = "SCHC Website <hello@mail.childhealthcorner.org>";
-
-type ContactPayload = {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-};
+const CONTACT_TO = "childhealthcorner@gmail.com";
+const CONTACT_FROM = "Sylfi's Child Health Corner <contact@mail.childhealthcorner.org>";
 
 export async function POST(request: Request) {
-  let body: ContactPayload;
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
@@ -23,17 +20,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const name = body.name?.trim();
-  const email = body.email?.trim();
-  const subject = body.subject?.trim();
-  const message = body.message?.trim();
-
-  if (!name || !email || !subject || !message) {
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "All fields are required." },
+      { error: "Invalid form data." },
       { status: 400 },
     );
   }
+
+  const { name, email, subject, message } = parsed.data;
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -46,6 +41,15 @@ export async function POST(request: Request) {
     );
   }
 
+  const emailElement = createElement(ContactEmail, {
+    name,
+    email,
+    subject,
+    message,
+  });
+  const html = await render(emailElement);
+  const text = await render(emailElement, { plainText: true });
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -57,8 +61,10 @@ export async function POST(request: Request) {
         from: CONTACT_FROM,
         to: [CONTACT_TO],
         reply_to: email,
-        subject: `[SCHC Contact] ${subject}`,
-        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+        subject,
+        headers: { "X-Entity-Ref-ID": crypto.randomUUID() },
+        html,
+        text,
       }),
     });
 
