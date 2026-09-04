@@ -6,7 +6,8 @@
 //      and the forms show the "email us instead" fallback. We load the same
 //      .env files Next uses and warn loudly in the terminal if the key is gone.
 import { execSync } from "node:child_process";
-import { loadEnvConfig } from "@next/env";
+import pkg from "@next/env";
+const { loadEnvConfig } = pkg;
 
 const PORT = 3000;
 

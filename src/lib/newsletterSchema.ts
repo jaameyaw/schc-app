@@ -1,15 +1,31 @@
 import { z } from "zod";
 
-// Single source of truth for newsletter-signup validation.
-// Imported by the client form and the API route so client and server
-// enforce the exact same rules.
+// Email rules stay shared so the API still accepts older email-only posts.
+const emailField = z
+  .string()
+  .trim()
+  .min(1, "Email is required")
+  .max(254, "Email is too long")
+  .pipe(z.email("Enter a valid email"));
+
 export const newsletterSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(1, "Email is required")
-    .max(254, "Email is too long")
-    .pipe(z.email("Enter a valid email")),
+  email: emailField,
+  name: z.string().trim().max(80, "Name is too long").optional(),
+  contact: z.string().trim().max(40, "Contact is too long").optional(),
 });
 
-export type NewsletterFormData = z.infer<typeof newsletterSchema>;
+export const newsletterFormSchema = z.object({
+  email: emailField,
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .max(80, "Name is too long"),
+  contact: z
+    .string()
+    .trim()
+    .min(1, "Contact is required")
+    .max(40, "Contact is too long"),
+});
+
+export type NewsletterFormData = z.infer<typeof newsletterFormSchema>;

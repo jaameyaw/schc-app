@@ -6,9 +6,21 @@ import { LOGO_BASE64, LOGO_CID, LOGO_FILENAME } from "@/emails/logoBase64";
 import { newsletterSchema } from "@/lib/newsletterSchema";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const WELCOME_FROM =
   "Sylfi's Child Health Corner <noreply@mail.childhealthcorner.org>";
+
+function createResendContact(apiKey: string, payload: Record<string, unknown>) {
+  return fetch("https://api.resend.com/contacts", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -26,7 +38,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid email." }, { status: 400 });
   }
 
-  const { email } = parsed.data;
+  const { email, name, contact } = parsed.data;
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -39,19 +51,29 @@ export async function POST(request: Request) {
   try {
     // Add the subscriber to the Resend default audience. Resend is idempotent
     // on email, so re-subscribing an existing contact still returns ok.
-    const res = await fetch("https://api.resend.com/contacts", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        unsubscribed: false,
-      }),
-    });
+    // first_name is a native Resend field. phone is a custom property — if
+    // that property is not set up yet, retry without it so signup still works.
+    const baseContact = {
+      email,
+      unsubscribed: false,
+      ...(name ? { first_name: name } : {}),
+    };
+
+    let res = await createResendContact(
+      apiKey,
+      contact ? { ...baseContact, properties: { phone: contact } } : baseContact,
+    );
+
+    if (!res.ok && contact) {
+      res = await createResendContact(apiKey, baseContact);
+    }
 
     if (!res.ok) {
+      console.error(
+        "Newsletter contact create failed:",
+        res.status,
+        await res.text(),
+      );
       return NextResponse.json(
         { error: "Failed to subscribe." },
         { status: 502 },
@@ -61,7 +83,9 @@ export async function POST(request: Request) {
     // Best-effort welcome email. The subscriber is already saved, so a failed
     // send should not fail the request — we just log and still return ok.
     try {
-      const emailElement = createElement(WelcomeEmail);
+      const emailElement = createElement(WelcomeEmail, {
+        subscriberName: name,
+      });
       const welcomeHtml = await render(emailElement);
       const welcomeText = await render(emailElement, { plainText: true });
 

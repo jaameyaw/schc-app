@@ -32,7 +32,11 @@ const BENEFITS = [
   "Ways you can help create lasting change",
 ];
 
-export function WelcomeEmail() {
+export function WelcomeEmail({ subscriberName }: { subscriberName?: string }) {
+  const greetingText = subscriberName
+    ? `Hello ${subscriberName}, and welcome! 💚`
+    : "Hello, and welcome! 💚";
+
   return (
     <Html>
       <Head />
@@ -58,7 +62,7 @@ export function WelcomeEmail() {
 
           {/* Body card */}
           <Section style={card}>
-            <Heading style={greeting}>Hello, and welcome! 💚</Heading>
+            <Heading style={greeting}>{greetingText}</Heading>
 
             <Text style={paragraph}>
               We&apos;re grateful you&apos;ve joined our community of people who

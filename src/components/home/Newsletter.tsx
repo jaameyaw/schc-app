@@ -4,30 +4,47 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { sectionEyebrow } from "@/lib/sectionEyebrow";
 import { sectionH2, bodyMuted } from "@/lib/typography";
-import { newsletterSchema } from "@/lib/newsletterSchema";
+import { newsletterFormSchema } from "@/lib/newsletterSchema";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error" | "unavailable";
 
+const fieldClassName =
+  "w-full px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors";
+
 export default function Newsletter() {
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [error, setError] = useState<string | null>(null);
 
+  const clearError = () => {
+    if (error) setError(null);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = newsletterSchema.safeParse({ email });
+    const parsed = newsletterFormSchema.safeParse({ name, contact, email });
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Enter a valid email");
+      setError(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
     setError(null);
     setStatus("submitting");
     try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: parsed.data.email }),
-      });
+      const postSignup = () =>
+        fetch("/api/newsletter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsed.data),
+          cache: "no-store",
+        });
+
+      // Turbopack can 404 the first POST to a route handler after a rebuild.
+      let res = await postSignup();
+      if (res.status === 404) {
+        res = await postSignup();
+      }
       // Only show a success state on a real 200 from the API route.
       // 501 means signup isn't configured yet (missing API key); everything
       // else is a temporary failure the user can retry.
@@ -74,37 +91,80 @@ export default function Newsletter() {
             <>
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+                className="flex flex-col gap-3 max-w-md mx-auto"
               >
-                <label htmlFor="newsletter-email" className="sr-only">
-                  Email address
+                <label htmlFor="newsletter-name" className="sr-only">
+                  Full name
                 </label>
                 <input
-                  id="newsletter-email"
-                  name="email"
-                  type="email"
-                  value={email}
+                  id="newsletter-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  value={name}
                   onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (error) setError(null);
+                    setName(e.target.value);
+                    clearError();
                   }}
-                  placeholder="Enter your email address"
+                  placeholder="Your name"
                   required
+                  maxLength={80}
                   aria-invalid={error ? true : undefined}
-                  aria-describedby={error ? "newsletter-email-error" : undefined}
-                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 text-dark-text placeholder:text-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
+                  aria-describedby={error ? "newsletter-form-error" : undefined}
+                  className={fieldClassName}
                 />
-                <button
-                  type="submit"
-                  disabled={status === "submitting"}
-                  className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {status === "submitting" ? "Subscribing..." : "Subscribe"}
-                </button>
+                <label htmlFor="newsletter-contact" className="sr-only">
+                  Contact number
+                </label>
+                <input
+                  id="newsletter-contact"
+                  name="contact"
+                  type="tel"
+                  autoComplete="tel"
+                  value={contact}
+                  onChange={(e) => {
+                    setContact(e.target.value);
+                    clearError();
+                  }}
+                  placeholder="Contact number"
+                  required
+                  maxLength={40}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? "newsletter-form-error" : undefined}
+                  className={fieldClassName}
+                />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <label htmlFor="newsletter-email" className="sr-only">
+                    Email address
+                  </label>
+                  <input
+                    id="newsletter-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      clearError();
+                    }}
+                    placeholder="Enter your email address"
+                    required
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? "newsletter-form-error" : undefined}
+                    className={`flex-1 ${fieldClassName}`}
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors duration-200 shrink-0 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === "submitting" ? "Subscribing..." : "Subscribe"}
+                  </button>
+                </div>
               </form>
               {error && (
                 <p
-                  id="newsletter-email-error"
+                  id="newsletter-form-error"
                   role="alert"
                   className="text-red-600 text-sm mt-3"
                 >
